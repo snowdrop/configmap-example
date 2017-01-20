@@ -97,7 +97,7 @@ mvn clean install
    the view role must be assigned to the default service account in the current project:
 
     ```
-    oc policy add-role-to-user view --serviceaccount=default
+    oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default -n $(oc project -q)
     ```    
 1. Use the Fabric8 Maven Plugin to launch the S2I process on the OpenShift Online machine & start the pod.
 
