@@ -14,7 +14,9 @@ The id of the message is incremented for each request.
 To customize the message, you can pass as parameter the name of the person that you want to send your greeting.
 
 When the Spring Boot application is deployed on OpenShift, [Kubernetes Config Map](https://kubernetes.io/docs/user-guide/configmap/) is used to externalize the 
-message to be returned to the client when it will call the REST endpoint using an application.properties file which is packaged within the ConfigMap.
+message to be returned to the client when it will call the REST endpoint. The message is declared within the application.properties file as a key. 
+The application.properties file is declared as a property of the ConfigMap under the section data.
+
 During the deployment of the application, the following configuration will be used to install the Config Map
 
 ```
