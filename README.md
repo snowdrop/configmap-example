@@ -23,7 +23,7 @@ During the deployment of the application, the following configuration will be us
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  name: "springboot-rest-configmap"
+  name: "sb-rest-configmap"
 data:
   application.properties: "message: Hello, %s from Kubernetes ConfigMap !\n"
 ```
@@ -93,7 +93,7 @@ mvn clean install
     ```
     oc login https://api.dev-preview-int.openshift.com --token=MYTOKEN
     ```
-1. To allow the Spring Boot application running as a pod to access the Kubernetes Api to retrieve the Config Map associated to the application name of the project `springboot-rest-configmap`, 
+1. To allow the Spring Boot application running as a pod to access the Kubernetes Api to retrieve the Config Map associated to the application name of the project `sb-rest-configmap`, 
    the view role must be assigned to the default service account in the current project:
 
     ```
@@ -108,7 +108,7 @@ mvn clean install
 1. Get the route url.
 
     ```
-    oc get route/springboot-rest-configmap
+    oc get route/sb-rest-configmap
     NAME              HOST/PORT                                          PATH      SERVICE                TERMINATION   LABELS
     springboot-rest   <HOST_PORT_ADDRESS>             springboot-rest:8080
     ```
