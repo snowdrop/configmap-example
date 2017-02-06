@@ -28,6 +28,12 @@ data:
   application.properties: "message: Hello, %s from Kubernetes ConfigMap !\n"
 ```
 
+Remark : In order to tell to SpringBoot how it could find the ConfigMop, the springboot.application.name property must be assigned with the value of the configmap
+
+```
+spring.application.name=sb-rest-configmap
+```
+
 You can perform this task in three different ways:
 
 1. Build and launch using Spring Boot.
