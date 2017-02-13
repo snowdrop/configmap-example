@@ -21,7 +21,7 @@
 
   <groupId>org.obsidiantoaster.quickstart</groupId>
   <artifactId>sb-rest-configmap</artifactId>
-  <version>1.0.0.Alpha2</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>rest-configmap</name>
