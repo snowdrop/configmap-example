@@ -1,0 +1,2 @@
+name: Spring Boot Tomcat - Rest & Config Map
+description: Quickstart to expose a REST Greeting endpoint using Spring Boot where the message is defined as a Kubernetes Config Map property  
