@@ -32,7 +32,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
 
-    <fabric8.version>2.2.176</fabric8.version>
+    <fabric8.version>2.2.205</fabric8.version>
     <fabric8-spring-cloud.version>0.1.4</fabric8-spring-cloud.version>
     <springboot-version>1.4.1.RELEASE</springboot-version>
     <tomcat.version>8.5.6</tomcat.version>
