@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -20,9 +20,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RestApplication {
+public class RestConfigMapApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RestApplication.class, args);
+		SpringApplication.run(RestConfigMapApplication.class, args);
 	}
 }

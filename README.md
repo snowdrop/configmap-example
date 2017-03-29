@@ -23,7 +23,7 @@ During the deployment of the application, the following configuration will be us
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  name: "sb-rest-configmap"
+  name: "springboot-rest-configmap"
 data:
   application.properties: "message: Hello, %s from Kubernetes ConfigMap !\n"
 ```
@@ -31,7 +31,7 @@ data:
 Remark : In order to tell to SpringBoot how it could find the ConfigMop, the springboot.application.name property must be assigned with the value of the configmap
 
 ```
-spring.application.name=sb-rest-configmap
+spring.application.name=springboot-rest-configmap
 ```
 
 You can perform this task in three different ways:
@@ -114,19 +114,19 @@ mvn clean install
 1. Get the route url.
 
     ```
-    oc get route/sb-rest-configmap
+    oc get route/springboot-rest-configmap
     NAME              HOST/PORT                                          PATH      SERVICE                TERMINATION   LABELS
-    springboot-rest   <HOST_PORT_ADDRESS>             springboot-rest:8080
+    springboot-rest-configmap   <HOST_PORT_ADDRESS>             springboot-rest-configmap:8080
     ```
 
 1. Use the Host or Port address to access the REST endpoint.
     ```
-    http http://<HOST_PORT_ADDRESS>/greeting
-    http http://<HOST_PORT_ADDRESS>/greeting name==Bruno
+    http http://<HOST_PORT_ADDRESS>/api/greeting
+    http http://<HOST_PORT_ADDRESS>/api/greeting name==Bruno
 
     or 
 
-    curl http://<HOST_PORT_ADDRESS>/greeting
-    curl http://<HOST_PORT_ADDRESS>/greeting name==Bruno
+    curl http://<HOST_PORT_ADDRESS>/api/greeting
+    curl http://<HOST_PORT_ADDRESS>/api/greeting name==Bruno
     ```
 1. Validate that you get the message `Hello, World from Kubernetes ConfigMap !` as call's response from the REST endpoint   

@@ -27,7 +27,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)  // Use a random port
-public class RestApplicationTest {
+public class RestConfigMapApplicationTest {
 
     // This will hold the port number the server was started on
     @Value("${local.server.port}")
@@ -37,7 +37,7 @@ public class RestApplicationTest {
 
     @Test
     public void callServiceTest() {
-        Greeting message = template.getForObject("http://localhost:" + port + "/greeting",Greeting.class);
+        Greeting message = template.getForObject("http://localhost:" + port + "/api/greeting",Greeting.class);
         Assert.assertEquals("Hello, World!", message.getContent());
         Assert.assertEquals(1, message.getId());
     }

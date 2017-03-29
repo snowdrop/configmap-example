@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -24,15 +24,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class GreetingController {
 
-    @Autowired
     private GreetingProperties properties;
     private final AtomicLong counter = new AtomicLong();
 
+    @Autowired
+    public GreetingController(GreetingProperties properties) {
+        this.properties = properties;
+    }
+
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return new Greeting(counter.incrementAndGet(),
-                            String.format(properties.getMessage(), name));
+        return new Greeting(counter.incrementAndGet(), String.format(properties.getMessage(), name));
     }
 }
