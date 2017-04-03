@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
  */
 package org.obsidiantoaster.quickstart;
 
+import org.junit.Before;
 import org.obsidiantoaster.quickstart.service.Greeting;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,20 +27,31 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)  // Use a random port
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestConfigMapApplicationTest {
 
-    // This will hold the port number the server was started on
     @Value("${local.server.port}")
-    int port;
+    private int port;
 
-    final RestTemplate template = new RestTemplate();
+    private final RestTemplate template = new RestTemplate();
+
+    private String serviceUrl;
+
+    @Before
+    public void beforeTest() {
+        serviceUrl = String.format("http://localhost:%d/api/greeting", port);
+    }
 
     @Test
-    public void callServiceTest() {
-        Greeting message = template.getForObject("http://localhost:" + port + "/api/greeting",Greeting.class);
-        Assert.assertEquals("Hello, World!", message.getContent());
-        Assert.assertEquals(1, message.getId());
+    public void testGreetingEndpoint() {
+        Greeting greeting = template.getForObject(serviceUrl, Greeting.class);
+        Assert.assertEquals("Hello, World!", greeting.getContent());
+    }
+
+    @Test
+    public void testGreetingEndpointWithNameParameter() {
+        Greeting greeting = template.getForObject(serviceUrl + "?name=John", Greeting.class);
+        Assert.assertEquals("Hello, John!", greeting.getContent());
     }
 
 }

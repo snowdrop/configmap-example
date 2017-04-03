@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
 public class GreetingController {
 
     private GreetingProperties properties;
@@ -35,8 +34,9 @@ public class GreetingController {
         this.properties = properties;
     }
 
-    @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(properties.getMessage(), name));
+    @RequestMapping("/api/greeting")
+    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        String message = String.format(properties.getMessage(), name);
+        return new Greeting(counter.incrementAndGet(), message);
     }
 }
