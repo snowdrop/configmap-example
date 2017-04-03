@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: ${project.artifactId}
+spec:
+  template:
+    spec:
+      containers:
+        - readinessProbe:
+            httpGet:
+              path: /api/greeting
+              port: 8080
+              scheme: HTTP
