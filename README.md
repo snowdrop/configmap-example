@@ -1,6 +1,6 @@
 # Introduction
 
-This project exposes a simple REST endpoint where the service `greeting` is available at this address `http://hostname:port/greeting` and returns a json Greeting message
+This project exposes a simple HTTP endpoint where the service `greeting` is available at this address `http://hostname:port/greeting` and returns a json Greeting message
 
 ```json
 {
@@ -14,7 +14,7 @@ The id of the message is incremented for each request.
 To customize the message, you can pass as parameter the name of the person that you want to send your greeting.
 
 When the Spring Boot application is deployed on OpenShift, [Kubernetes Config Map](https://kubernetes.io/docs/user-guide/configmap/) is used to externalize the 
-message to be returned to the client when it will call the REST endpoint. The message is declared within the application.properties file as a key. 
+message to be returned to the client when it will call the HTTP endpoint. The message is declared within the application.properties file as a key. 
 The application.properties file is declared as a property of the ConfigMap under the section data.
 
 During the deployment of the application, the following configuration will be used to install the Config Map
@@ -23,7 +23,7 @@ During the deployment of the application, the following configuration will be us
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  name: "springboot-rest-configmap"
+  name: "spring-boot-configmap"
 data:
   application.properties: "message: Hello, %s from Kubernetes ConfigMap !\n"
 ```
@@ -31,7 +31,7 @@ data:
 Remark : In order to tell to SpringBoot how it could find the ConfigMop, the springboot.application.name property must be assigned with the value of the configmap
 
 ```
-spring.application.name=springboot-rest-configmap
+spring.application.name=spring-boot-configmap
 ```
 
 You can perform this task in three different ways:
@@ -47,7 +47,7 @@ To get started with these quickstarts you'll need the following prerequisites:
 Name | Description | Version
 --- | --- | ---
 [java][1] | Java JDK | 8
-[maven][2] | Apache Maven | 3.2.x 
+[maven][2] | Apache Maven | 3.3.9
 [oc][3] | OpenShift Client | v3.3.x
 [git][4] | Git version management | 2.x 
 
@@ -58,36 +58,26 @@ Name | Description | Version
 
 In order to build and deploy this project, you must have an account on an OpenShift Online (OSO): https://console.dev-preview-int.openshift.com/ instance.
 
-# Build the Project
-
-The project bundles the Apache Tomcat 8.0.36 artifacts with SpringBoot 1.4.1.RELEASE.
-
-Execute the following maven command:
-
-```
-mvn clean install
-```
-
 # Launch and test
 
 1. Run the following command to start the maven goal of Spring Boot:
 
     ```
-    mvn spring-boot:run
+    mvn clean spring-boot:run
     ```
 
-1. If the application launched without error, use the following command to access the REST endpoint exposed using curl or httpie tool:
+1. If the application launched without error, use the following command to access the HTTP endpoint exposed using curl or httpie tool:
 
     ```
-    http http://localhost:8080/greeting
-    curl http://localhost:8080/greeting
+    http http://localhost:8080/api/greeting
+    curl http://localhost:8080/api/greeting
     ```
 
 1. To pass a parameter for the Greeting Service, use the following HTTP request:
 
     ```
-    http http://localhost:8080/greeting name==Charles
-    curl http://localhost:8080/greeting -d name=Bruno
+    http http://localhost:8080/api/greeting name==Charles
+    curl http://localhost:8080/api/greeting -d name=Bruno
     ```
 
 # OpenShift Online
@@ -99,7 +89,7 @@ mvn clean install
     ```
     oc login https://api.dev-preview-int.openshift.com --token=MYTOKEN
     ```
-1. To allow the Spring Boot application running as a pod to access the Kubernetes Api to retrieve the Config Map associated to the application name of the project `sb-rest-configmap`, 
+1. To allow the Spring Boot application running as a pod to access the Kubernetes Api to retrieve the Config Map associated to the application name of the project `spring-boot-configmap`, 
    the view role must be assigned to the default service account in the current project:
 
     ```
@@ -108,18 +98,18 @@ mvn clean install
 1. Use the Fabric8 Maven Plugin to launch the S2I process on the OpenShift Online machine & start the pod.
 
     ```
-    mvn clean fabric8:deploy -Popenshift  -DskipTests
+    mvn clean fabric8:deploy -Popenshift
     ```
     
 1. Get the route url.
 
     ```
-    oc get route/springboot-rest-configmap
+    oc get route/spring-boot-configmap
     NAME              HOST/PORT                                          PATH      SERVICE                TERMINATION   LABELS
-    springboot-rest-configmap   <HOST_PORT_ADDRESS>             springboot-rest-configmap:8080
+    spring-boot-configmap   <HOST_PORT_ADDRESS>             spring-boot-configmap:8080
     ```
 
-1. Use the Host or Port address to access the REST endpoint.
+1. Use the Host or Port address to access the HTTP endpoint.
     ```
     http http://<HOST_PORT_ADDRESS>/api/greeting
     http http://<HOST_PORT_ADDRESS>/api/greeting name==Bruno
@@ -129,4 +119,4 @@ mvn clean install
     curl http://<HOST_PORT_ADDRESS>/api/greeting
     curl http://<HOST_PORT_ADDRESS>/api/greeting name==Bruno
     ```
-1. Validate that you get the message `Hello, World from Kubernetes ConfigMap !` as call's response from the REST endpoint   
+1. Validate that you get the message `Hello, World from Kubernetes ConfigMap!` as call's response from the HTTP endpoint   
