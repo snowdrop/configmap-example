@@ -14,28 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.obsidiantoaster.quickstart.service;
+package io.openshift.booster;
 
-public class Greeting {
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-    private final long id;
-    private final String content;
+@SpringBootApplication
+public class RestConfigMapApplication {
 
-    public Greeting() {
-        this.id = 0;
-        this.content = null;
-    }
-
-    public Greeting(long id, String content) {
-        this.id = id;
-        this.content = content;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getContent() {
-        return content;
+    public static void main(String[] args) {
+        SpringApplication.run(RestConfigMapApplication.class, args);
     }
 }
