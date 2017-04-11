@@ -20,9 +20,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RestConfigMapApplication {
+public class BoosterApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RestConfigMapApplication.class, args);
+        SpringApplication.run(BoosterApplication.class, args);
     }
 }

@@ -28,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RestConfigMapApplicationTest {
+public class BoosterApplicationTest {
 
     @Value("${local.server.port}")
     private int port;
