@@ -5,6 +5,7 @@ metadata:
 spec:
   template:
     spec:
+      serviceAccount: springboot-configmap
       containers:
         - readinessProbe:
             httpGet:
