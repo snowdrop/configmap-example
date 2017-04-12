@@ -1,10 +1,10 @@
-apiVersion: v1
-kind: RoleBinding
+apiVersion: "v1"
+kind: "RoleBinding"
 metadata:
-  name: springboot-configmap
+  name: "springboot-configmap"
 roleRef:
   # Add the view role to the service account
-  name: view
+  name: "view"
 subjects:
-  - kind: ServiceAccount
-    name: springboot-configmap
+  - kind: "ServiceAccount"
+    name: "springboot-configmap"
