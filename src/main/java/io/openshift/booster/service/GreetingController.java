@@ -16,7 +16,7 @@
  */
 package io.openshift.booster.service;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class GreetingController {
 
     private GreetingProperties properties;
-    private final AtomicLong counter = new AtomicLong();
 
     @Autowired
     public GreetingController(GreetingProperties properties) {
@@ -36,7 +35,9 @@ public class GreetingController {
 
     @RequestMapping("/api/greeting")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        Objects.requireNonNull(properties.getMessage(), "Greeting message was not set in the properties");
+
         String message = String.format(properties.getMessage(), name);
-        return new Greeting(counter.incrementAndGet(), message);
+        return new Greeting(message);
     }
 }

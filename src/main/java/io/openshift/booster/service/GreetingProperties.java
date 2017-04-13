@@ -23,7 +23,11 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("greeting")
 public class GreetingProperties {
 
-    private String message = "Hello, %s!";
+    /**
+     * This message has to be set in the application.properties file. If application is executed locally, "local" profile is
+     * expected. On OpenShift, this property is set by a ConfigMap.
+     */
+    private String message = null;
 
     public String getMessage() {
         return message;

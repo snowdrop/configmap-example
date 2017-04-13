@@ -4,4 +4,4 @@ metadata:
   name: ${project.artifactId}
 data:
   application.properties: |
-    greeting.message: Hello, %s from Kubernetes ConfigMap!
+    greeting.message: Hello %s from a ConfigMap!
