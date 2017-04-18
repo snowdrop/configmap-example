@@ -16,15 +16,17 @@
  */
 package io.openshift.booster;
 
+import com.jayway.restassured.RestAssured;
 import org.junit.Before;
-import io.openshift.booster.service.Greeting;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RestTemplate;
+
+import static com.jayway.restassured.RestAssured.given;
+import static com.jayway.restassured.RestAssured.when;
+import static org.hamcrest.core.Is.is;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -33,25 +35,27 @@ public class BoosterApplicationTest {
     @Value("${local.server.port}")
     private int port;
 
-    private final RestTemplate template = new RestTemplate();
-
-    private String serviceUrl;
-
     @Before
     public void beforeTest() {
-        serviceUrl = String.format("http://localhost:%d/api/greeting", port);
+        RestAssured.baseURI = String.format("http://localhost:%d/api/greeting", port);
     }
 
     @Test
     public void testGreetingEndpoint() {
-        Greeting greeting = template.getForObject(serviceUrl, Greeting.class);
-        Assert.assertEquals("Hello, World!", greeting.getContent());
+        when().get()
+                .then()
+                .statusCode(200)
+                .body("content", is("Hello, World!"));
     }
 
     @Test
     public void testGreetingEndpointWithNameParameter() {
-        Greeting greeting = template.getForObject(serviceUrl + "?name=John", Greeting.class);
-        Assert.assertEquals("Hello, John!", greeting.getContent());
+        given().param("name", "John")
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .body("content", is("Hello, John!"));
     }
 
 }
