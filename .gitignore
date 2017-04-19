@@ -1,7 +1,12 @@
-.idea/
+# IntelliJ
+.idea
 *.iml
-*.ipr
-*.iws
-target/
-.project
+target
+
+# Eclipse
+.metadata
 .settings
+.classpath
+.project
+bin
+tmp
