@@ -34,7 +34,7 @@
     <fabric8-spring-cloud.version>0.1.4</fabric8-spring-cloud.version>
     <kubernetes-client.version>1.4.34</kubernetes-client.version>
     <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-    <tomcat.version>8.5.6</tomcat.version>
+    <tomcat.version>8.5.4</tomcat.version>
   </properties>
 
   <dependencyManagement>
