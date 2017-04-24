@@ -1,1 +1,1 @@
-http://openshiftio-appdev-docs-appdev-documentation.tsrv.devshift.net/mission-configmap-spring-boot-tomcat.html
+http://appdev.openshift.io/mission-configmap-spring-boot-tomcat.html
