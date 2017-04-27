@@ -12,9 +12,10 @@
     <div class="row">
         <h1>ConfigMap Mission - Spring Boot</h1>
         <p class="lead">
-            Mission that demonstrates application and runtime configuration leveraging external configuration sources.
-            Alongside the basic means to set up a configmap and use with a specific runtime, this mission also demonstrates
-            how changes to the configuration can be applied to services already deployed to OpenShift.
+            This mission showcases application configuration, using OpenShift <em>configmaps</em>. It
+            demonstrates application and runtime configuration leveraging external configuration sources. Alongside
+            the basic means to set up a <em>configmap</em> and use with a specific runtime, this booster also
+            demonstrates how changes to the configuration can be applied to services already deployed in OpenShift.
         </p>
     </div>
 
@@ -31,36 +32,6 @@
 
         <h3>Result:</h3>
         <pre><code id="greeting-result">Invoke the service to see the result.</code></pre>
-    </div>
-
-    <div class="row">
-        <h2>Use the greeting service from the terminal</h2>
-        <div>
-            <h3>Get service URL</h3>
-            <div>
-                <p>If the service is running locally, its URL is:</p>
-                <pre><code>http://localhost:8080/api/greeting</code></pre>
-            </div>
-            <div>
-                <p>If the service is running on OpenShift, use an <em>oc</em> command to get the route <em>HOST_PORT_ADDRESS</em>:</p>
-                <pre><code>oc get route/spring-boot-configmap</code></pre>
-            </div>
-            <div>
-                <p>And use route <em>HOST_PORT_ADDRESS</em> to form service URL:</p>
-                <pre><code>http://&lt;HOST_PORT_ADDRESS&gt;/api/greeting</code></pre>
-            </div>
-        </div>
-        <div>
-            <h3>Invoke service with cURL</h3>
-            <div>
-                <p>Get default greeting message:</p>
-                <pre><code>curl &lt;SERVICE_URL&gt;</code></pre>
-            </div>
-            <div>
-                <p>Get parametrised greeting message:</p>
-                <pre><code>curl &lt;SERVICE_URL&gt;?name=John</code></pre>
-            </div>
-        </div>
     </div>
 
     <div class="row">
