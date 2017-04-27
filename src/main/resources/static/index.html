@@ -47,18 +47,18 @@
             </div>
             <div>
                 <p>And use route <em>HOST_PORT_ADDRESS</em> to form service URL:</p>
-                <pre><code>http://${HOST_PORT_ADDRESS}/api/greeting</code></pre>
+                <pre><code>http://&lt;HOST_PORT_ADDRESS&gt;/api/greeting</code></pre>
             </div>
         </div>
         <div>
             <h3>Invoke service with cURL</h3>
             <div>
                 <p>Get default greeting message:</p>
-                <pre><code>curl ${SERVICE_URL}</code></pre>
+                <pre><code>curl &lt;SERVICE_URL&gt;</code></pre>
             </div>
             <div>
                 <p>Get parametrised greeting message:</p>
-                <pre><code>curl ${SERVICE_URL}?name=John</code></pre>
+                <pre><code>curl &lt;SERVICE_URL&gt;?name=John</code></pre>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
         <h2>Reconfigure OpenShift ConfigMap</h2>
         <div>
             <p>Open ConfigMap editor in your terminal:</p>
-            <pre><code>oc edit configmap spring-boot-configmap</code></pre>
+            <pre><code>oc edit configmap &lt;CONFIGMAP_NAME&gt;</code></pre>
         </div>
         <div>
             <p>Replace the greeting.message</p>
@@ -75,7 +75,7 @@
         </div>
         <div>
             <p>And reload your application</p>
-            <pre><code>oc rollout latest dc/spring-boot-configmap</code></pre>
+            <pre><code>oc rollout latest dc/&lt;DEPLOYMENT_NAME&gt;</code></pre>
         </div>
     </div>
 </div>
