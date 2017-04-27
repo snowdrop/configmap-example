@@ -25,7 +25,7 @@
 
   <groupId>io.openshift.booster</groupId>
   <artifactId>spring-boot-configmap</artifactId>
-  <version>3</version>
+  <version>4-SNAPSHOT</version>
 
   <name>Spring Boot - ConfigMap</name>
   <description>Spring Boot - ConfigMap</description>
