@@ -16,14 +16,16 @@
 
 package io.openshift.booster;
 
-import java.util.concurrent.TimeUnit;
-
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import io.openshift.booster.test.OpenShiftTestAssistant;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static com.jayway.restassured.RestAssured.get;
@@ -31,24 +33,16 @@ import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
 import static org.hamcrest.core.Is.is;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OpenShiftIT {
-
-    private static OpenShiftTestAssistant assistant = new OpenShiftTestAssistant();
+    private static final OpenShiftTestAssistant assistant = new OpenShiftTestAssistant();
+    private static final String CONFIG_MAP_NAME = "spring-boot-configmap";
 
     @BeforeClass
     public static void prepare() throws Exception {
         assistant.deployApplication();
         assistant.awaitApplicationReadinessOrFail();
-
-        await().atMost(5, TimeUnit.MINUTES)
-                .until(() -> {
-                    try {
-                        Response response = get();
-                        return response.getStatusCode() < 500;
-                    } catch (Exception e) {
-                        return false;
-                    }
-                });
+        waitForApp();
 
         RestAssured.baseURI = RestAssured.baseURI + "/api/greeting";
     }
@@ -59,21 +53,98 @@ public class OpenShiftIT {
     }
 
     @Test
-    public void testGreetingEndpoint() {
-        when().get()
-                .then()
-                .statusCode(200)
-                .body("content", is("Hello World from a ConfigMap!"));
+    public void testAGreetingEndpoint() {
+        verifyEndpoint("Hello");
     }
 
     @Test
-    public void testGreetingEndpointWithNameParameter() {
+    public void testBGreetingEndpointWithNameParameter() {
         given().param("name", "John")
                 .when()
                 .get()
                 .then()
                 .statusCode(200)
                 .body("content", is("Hello John from a ConfigMap!"));
+    }
+
+    @Test
+    public void testCConfigMapUpdate() {
+        verifyEndpoint("Hello");
+        updateConfigMap();
+        rolloutChanges();
+        waitForApp();
+        verifyEndpoint("Bonjour");
+    }
+
+    @Test
+    public void testDConfigMapNotPresent() {
+        verifyEndpoint("Bonjour");
+        deleteConfigMap();
+        rolloutChanges();
+        await().atMost(5, TimeUnit.MINUTES)
+                .catchUncaughtExceptions()
+                .until(() ->
+                        get().then()
+                                .statusCode(500)
+                );
+    }
+
+    private void verifyEndpoint(final String greeting) {
+        when().get()
+                .then()
+                .statusCode(200)
+                .body("content", is(String.format("%s World from a ConfigMap!", greeting)));
+    }
+
+    private void updateConfigMap() {
+        assistant.client()
+                .configMaps()
+                .withName(CONFIG_MAP_NAME)
+                .edit()
+                .addToData("application.properties", "greeting.message: Bonjour %s from a ConfigMap!")
+                .done();
+    }
+
+    private void deleteConfigMap() {
+        assistant.client()
+                .configMaps()
+                .withName(CONFIG_MAP_NAME)
+                .delete();
+    }
+
+    private void rolloutChanges() {
+        scale(0);
+        scale(1);
+    }
+
+    private void scale(final int replicas) {
+        assistant.client()
+                .deploymentConfigs()
+                .inNamespace(assistant.project())
+                .withName(assistant.applicationName())
+                .scale(replicas);
+
+        await().atMost(5, TimeUnit.MINUTES)
+                .until(() -> assistant.client()
+                        .deploymentConfigs()
+                        .inNamespace(assistant.project())
+                        .withName(assistant.applicationName())
+                        .get()
+                        .getStatus()
+                        .getAvailableReplicas() == replicas
+                );
+    }
+
+    private static void waitForApp() {
+        await().atMost(5, TimeUnit.MINUTES)
+                .until(() -> {
+                    try {
+                        final Response response = get();
+                        return response.getStatusCode() == 200;
+                    } catch (final Exception e) {
+                        return false;
+                    }
+                });
     }
 
 }
