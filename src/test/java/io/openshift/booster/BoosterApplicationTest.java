@@ -17,9 +17,11 @@
 package io.openshift.booster;
 
 import com.jayway.restassured.RestAssured;
+import io.openshift.booster.service.GreetingProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -35,6 +37,9 @@ public class BoosterApplicationTest {
     @Value("${local.server.port}")
     private int port;
 
+    @Autowired
+    private GreetingProperties properties;
+
     @Before
     public void beforeTest() {
         RestAssured.baseURI = String.format("http://localhost:%d/api/greeting", port);
@@ -45,7 +50,7 @@ public class BoosterApplicationTest {
         when().get()
                 .then()
                 .statusCode(200)
-                .body("content", is("Hello, World!"));
+                .body("content", is(String.format(properties.getMessage(), "World")));
     }
 
     @Test
@@ -55,7 +60,7 @@ public class BoosterApplicationTest {
                 .get()
                 .then()
                 .statusCode(200)
-                .body("content", is("Hello, John!"));
+                .body("content", is(String.format(properties.getMessage(), "John")));
     }
 
 }
