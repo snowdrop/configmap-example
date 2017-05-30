@@ -18,6 +18,8 @@ package io.openshift.booster;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
+import io.fabric8.kubernetes.api.model.Pod;
+import io.fabric8.kubernetes.client.internal.readiness.Readiness;
 import io.openshift.booster.test.OpenShiftTestAssistant;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -25,6 +27,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -125,14 +128,18 @@ public class OpenShiftIT {
                 .scale(replicas);
 
         await().atMost(5, TimeUnit.MINUTES)
-                .until(() -> assistant.client()
-                        .deploymentConfigs()
-                        .inNamespace(assistant.project())
-                        .withName(assistant.applicationName())
-                        .get()
-                        .getStatus()
-                        .getAvailableReplicas() == replicas
-                );
+                .until(() -> {
+                    // ideally, we'd look at deployment config's status.availableReplicas field,
+                    // but that's only available since OpenShift 3.5
+                    List<Pod> pods = assistant.client()
+                            .pods()
+                            .inNamespace(assistant.project())
+                            .withLabel("deploymentconfig", assistant.applicationName())
+                            .list()
+                            .getItems();
+                    return pods.size() == replicas && pods.stream()
+                            .allMatch(Readiness::isPodReady);
+                });
     }
 
     private static void waitForApp() {
