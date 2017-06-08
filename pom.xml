@@ -115,6 +115,7 @@
           <profiles>
             <profile>local</profile>
           </profiles>
+          <classifier>exec</classifier>
         </configuration>
         <executions>
           <execution>
