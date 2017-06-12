@@ -115,7 +115,15 @@
           <profiles>
             <profile>local</profile>
           </profiles>
+          <classifier>exec</classifier>
         </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
