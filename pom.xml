@@ -31,44 +31,18 @@
   <description>Spring Boot - ConfigMap</description>
 
   <properties>
-    <fabric8-spring-cloud.version>0.1.4</fabric8-spring-cloud.version>
-    <kubernetes-client.version>1.4.34</kubernetes-client.version>
     <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-    <tomcat.version>8.5.4</tomcat.version>
+    <spring-boot.bom.version>1</spring-boot.bom.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>${spring-boot.version}</version>
+        <groupId>org.jboss.snowdrop</groupId>
+        <artifactId>spring-boot-parent</artifactId>
+        <version>${spring-boot.bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-
-      <!-- Override Tomcat version -->
-      <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-core</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-el</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-websocket</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-
-      <!-- Override kubernetes-client version -->
-      <dependency>
-        <groupId>io.fabric8</groupId>
-        <artifactId>kubernetes-client</artifactId>
-        <version>${kubernetes-client.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -81,7 +55,12 @@
     <dependency>
       <groupId>io.fabric8</groupId>
       <artifactId>spring-cloud-kubernetes-core</artifactId>
-      <version>${fabric8-spring-cloud.version}</version>
+    </dependency>
+
+    <!-- Apache Tomcat Dependency required -->
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-juli</artifactId>
     </dependency>
 
     <!-- Testing -->
