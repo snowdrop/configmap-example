@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: app-config
-data:
-  application.properties: |
-    greeting.message: Hello %s from a ConfigMap!
