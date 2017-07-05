@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: ${project.artifactId}
-data:
-  application.properties: |
-    greeting.message: Hello %s from a ConfigMap!

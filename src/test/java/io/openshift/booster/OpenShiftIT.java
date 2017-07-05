@@ -27,6 +27,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -39,11 +40,13 @@ import static org.hamcrest.core.Is.is;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OpenShiftIT {
     private static final OpenShiftTestAssistant assistant = new OpenShiftTestAssistant();
-    private static final String CONFIG_MAP_NAME = "spring-boot-configmap";
+    private static final String CONFIG_MAP_NAME = "app-config";
+    private static final String CONFIG_MAP_FILE = "target/test-classes/test-configmap.yml";
 
     @BeforeClass
     public static void prepare() throws Exception {
         assistant.deployApplication();
+        assistant.deploy(CONFIG_MAP_NAME, new File(CONFIG_MAP_FILE));
         assistant.awaitApplicationReadinessOrFail();
         waitForApp();
 
