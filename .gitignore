@@ -10,3 +10,7 @@ target
 .project
 bin
 tmp
+
+# OS generated files #
+######################
+.DS_Store?
