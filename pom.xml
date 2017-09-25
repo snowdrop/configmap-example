@@ -24,11 +24,12 @@
   </parent>
 
   <groupId>io.openshift.booster</groupId>
-  <artifactId>spring-boot-configmap</artifactId>
+  <artifactId>spring-boot-configmap-parent</artifactId>
   <version>8-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-  <name>Spring Boot - ConfigMap</name>
-  <description>Spring Boot - ConfigMap</description>
+  <name>Spring Boot - ConfigMap - Parent</name>
+  <description>Spring Boot - ConfigMap - Parent</description>
 
   <properties>
     <spring-boot.version>1.5.7.RELEASE</spring-boot.version>
@@ -54,66 +55,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-kubernetes-config</artifactId>
-    </dependency>
-
-    <!-- Apache Tomcat Dependency required -->
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-juli</artifactId>
-    </dependency>
-
-    <!-- Testing -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>true</filtering>
-      </testResource>
-    </testResources>
-
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot.version}</version>
-        <configuration>
-          <profiles>
-            <profile>local</profile>
-          </profiles>
-          <classifier>exec</classifier>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 
   <profiles>
     <profile>
@@ -156,4 +97,8 @@
       </build>
     </profile>
   </profiles>
+
+  <modules>
+    <module>greeting-service</module>
+  </modules>
 </project>
