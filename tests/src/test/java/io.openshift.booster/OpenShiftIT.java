@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static com.jayway.restassured.RestAssured.get;
@@ -48,15 +49,29 @@ public class OpenShiftIT {
     private static final OpenShiftTestAssistant assistant = new OpenShiftTestAssistant();
     private static final String CONFIG_MAP_NAME = "app-config";
     private static final String CONFIG_MAP_FILE = "target/test-classes/test-configmap.yml";
+    private static final String GREETING_SERVICE_APP = "spring-boot-configmap-greeting";
+    private static String greetingServiceURI;
 
     @BeforeClass
     public static void prepare() throws Exception {
-        final String greetingServiceURI = deployApp("spring-boot-configmap-greeting", System.getProperty("greetingServiceTemplate"));
+        final String greetingServiceTemplate = System.getProperty("greetingServiceTemplate");
+        if(greetingServiceTemplate == null) {
+            throw new IllegalArgumentException("Greeting service template file location hasn't been provided! (Hint: usually in systemPropertyVariables of maven-failsafe-plugin configuration)");
+        }
+        greetingServiceURI = deployApp(GREETING_SERVICE_APP, greetingServiceTemplate);
         assistant.deploy(CONFIG_MAP_NAME, new File(CONFIG_MAP_FILE));
-        assistant.awaitApplicationReadinessOrFail();
+
+        await().atMost(5, TimeUnit.MINUTES).until(() -> {
+            List<Pod> list = assistant.client().pods().inNamespace(assistant.project()).list().getItems();
+            return !list.stream()
+                    .filter(pod -> pod.getMetadata().getName().startsWith(GREETING_SERVICE_APP))
+                    .filter(pod -> "running".equalsIgnoreCase(pod.getStatus().getPhase())).collect(Collectors.toList()).isEmpty();
+        });
+
         waitForApp();
 
-        RestAssured.baseURI = greetingServiceURI + "/api/greeting";
+        // record URI of greeting service so that we can access it later
+        greetingServiceURI += "/api/greeting";
     }
 
     @AfterClass
@@ -73,7 +88,7 @@ public class OpenShiftIT {
     public void testBGreetingEndpointWithNameParameter() {
         given().param("name", "John")
                 .when()
-                .get()
+                .get(greetingServiceURI)
                 .then()
                 .statusCode(200)
                 .body("content", is("Hello John from a ConfigMap!"));
@@ -96,13 +111,13 @@ public class OpenShiftIT {
         await().atMost(5, TimeUnit.MINUTES)
                 .catchUncaughtExceptions()
                 .until(() ->
-                        get().then()
+                        get(greetingServiceURI).then()
                                 .statusCode(500)
                 );
     }
 
     private void verifyEndpoint(final String greeting) {
-        when().get()
+        when().get(greetingServiceURI)
                 .then()
                 .statusCode(200)
                 .body("content", is(String.format("%s World from a ConfigMap!", greeting)));
@@ -133,7 +148,7 @@ public class OpenShiftIT {
         assistant.client()
                 .deploymentConfigs()
                 .inNamespace(assistant.project())
-                .withName(assistant.applicationName())
+                .withName(GREETING_SERVICE_APP)
                 .scale(replicas);
 
         await().atMost(5, TimeUnit.MINUTES)
@@ -143,7 +158,7 @@ public class OpenShiftIT {
                     List<Pod> pods = assistant.client()
                             .pods()
                             .inNamespace(assistant.project())
-                            .withLabel("deploymentconfig", assistant.applicationName())
+                            .withLabel("deploymentconfig", GREETING_SERVICE_APP)
                             .list()
                             .getItems();
                     return pods.size() == replicas && pods.stream()
@@ -155,7 +170,7 @@ public class OpenShiftIT {
         await().atMost(5, TimeUnit.MINUTES)
                 .until(() -> {
                     try {
-                        final Response response = get();
+                        final Response response = get(greetingServiceURI);
                         return response.getStatusCode() == 200;
                     } catch (final Exception e) {
                         return false;
