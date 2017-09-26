@@ -35,6 +35,10 @@ parameters:
   description: Maven Nexus Repository to be used during build phase
   displayName:
   required: false
+- name: SERVICE_ACCOUNT
+  description: Service account to be mounted with the pod created
+  displayName: jenkins
+  required: false
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -198,6 +202,7 @@ objects:
             initialDelaySeconds: 10
           securityContext:
             privileged: false
+          serviceAccountName: ${SERVICE_ACCOUNT}
     triggers:
     - type: ConfigChange
     - imageChangeParams:
