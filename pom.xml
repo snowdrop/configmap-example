@@ -32,7 +32,7 @@
 
   <properties>
     <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-    <spring-boot.bom.version>1.4.1.Beta1</spring-boot.bom.version>
+    <spring-boot.bom.version>1.4.1.Beta2</spring-boot.bom.version>
   </properties>
 
   <repositories>
