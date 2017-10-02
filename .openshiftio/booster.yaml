@@ -1,1 +1,7 @@
-name: Spring Boot - ConfigMap
+name: Spring Boot - ConfigMap Example
+description: A booster demonstrating how to externalize configuration using Spring Boot on OpenShift and ConfigMaps
+versions:
+  - id: community
+    name: 1.5.7.RELEASE (Community)
+  - id: redhat
+    name: 1.5.7.RELEASE (RHOAR)
