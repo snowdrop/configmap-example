@@ -180,12 +180,6 @@ objects:
                 fieldPath: metadata.namespace
           image: spring-boot-configmap:latest
           imagePullPolicy: IfNotPresent
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 180
           name: spring-boot
           ports:
           - containerPort: 8080
@@ -197,12 +191,6 @@ objects:
           - containerPort: 8778
             name: jolokia
             protocol: TCP
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 10
           securityContext:
             privileged: false
           serviceAccountName: ${SERVICE_ACCOUNT}
