@@ -23,7 +23,7 @@
         <version>8-SNAPSHOT</version>
     </parent>
 
-    <artifactId>spring-boot-configmap-greeting</artifactId>
+    <artifactId>spring-boot-configmap</artifactId>
 
     <name>Spring Boot - ConfigMap - Greeting Service</name>
     <description>Spring Boot - ConfigMap - Greeting Service</description>
