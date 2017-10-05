@@ -43,7 +43,7 @@ objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: spring-boot-configmap-greeting
+    name: spring-boot-configmap
   spec: {}
 - apiVersion: v1
   kind: ImageStream
@@ -58,12 +58,12 @@ objects:
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: spring-boot-configmap-greeting
+    name: spring-boot-configmap
   spec:
     output:
       to:
         kind: ImageStreamTag
-        name: spring-boot-configmap-greeting:latest
+        name: spring-boot-configmap:latest
     postCommit: {}
     resources: {}
     source:
@@ -101,21 +101,21 @@ objects:
   metadata:
     annotations:
       fabric8.io/git-commit: 0a10d945f2295d4400c0b0fb5e7fa593f632b82e
-      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap-greeting
+      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
       prometheus.io/port: "9779"
-      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap-greeting
+      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
       fabric8.io/iconUrl: img/icons/spring-boot.svg
       fabric8.io/git-branch: sb-1.5.x
       prometheus.io/scrape: "true"
-      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap-greeting
+      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
       fabric8.io/scm-tag: booster-parent-10
     labels:
       expose: "true"
-      app: spring-boot-configmap-greeting
+      app: spring-boot-configmap
       provider: fabric8
       version: 8-SNAPSHOT
       group: io.openshift.booster
-    name: spring-boot-configmap-greeting
+    name: spring-boot-configmap
   spec:
     ports:
     - name: http
@@ -123,7 +123,7 @@ objects:
       protocol: TCP
       targetPort: 8080
     selector:
-      app: spring-boot-configmap-greeting
+      app: spring-boot-configmap
       provider: fabric8
       group: io.openshift.booster
 - apiVersion: v1
@@ -131,24 +131,24 @@ objects:
   metadata:
     annotations:
       fabric8.io/git-commit: 0a10d945f2295d4400c0b0fb5e7fa593f632b82e
-      fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap-greeting&var-version=8-SNAPSHOT
-      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap-greeting
-      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap-greeting
+      fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap&var-version=8-SNAPSHOT
+      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
+      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
       fabric8.io/iconUrl: img/icons/spring-boot.svg
       fabric8.io/git-branch: sb-1.5.x
-      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap-greeting
+      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
       fabric8.io/scm-tag: booster-parent-10
     labels:
-      app: spring-boot-configmap-greeting
+      app: spring-boot-configmap
       provider: fabric8
       version: 8-SNAPSHOT
       group: io.openshift.booster
-    name: spring-boot-configmap-greeting
+    name: spring-boot-configmap
   spec:
     replicas: 1
     revisionHistoryLimit: 2
     selector:
-      app: spring-boot-configmap-greeting
+      app: spring-boot-configmap
       provider: fabric8
       group: io.openshift.booster
     strategy:
@@ -159,15 +159,15 @@ objects:
       metadata:
         annotations:
           fabric8.io/git-commit: 0a10d945f2295d4400c0b0fb5e7fa593f632b82e
-          fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap-greeting&var-version=8-SNAPSHOT
-          fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap-greeting
-          fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap-greeting
+          fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap&var-version=8-SNAPSHOT
+          fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
+          fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
           fabric8.io/iconUrl: img/icons/spring-boot.svg
           fabric8.io/git-branch: sb-1.5.x
-          fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap-greeting
+          fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
           fabric8.io/scm-tag: booster-parent-10
         labels:
-          app: spring-boot-configmap-greeting
+          app: spring-boot-configmap
           provider: fabric8
           version: 8-SNAPSHOT
           group: io.openshift.booster
@@ -178,7 +178,7 @@ objects:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-          image: spring-boot-configmap-greeting:latest
+          image: spring-boot-configmap:latest
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -214,21 +214,21 @@ objects:
         - spring-boot
         from:
           kind: ImageStreamTag
-          name: spring-boot-configmap-greeting:latest
+          name: spring-boot-configmap:latest
       type: ImageChange
 - apiVersion: v1
   kind: Route
   metadata:
     labels:
-      app: spring-boot-configmap-greeting
+      app: spring-boot-configmap
       provider: fabric8
       version: 8-SNAPSHOT
       group: io.openshift.booster
-    name: spring-boot-configmap-greeting
+    name: spring-boot-configmap
   spec:
     port:
       targetPort: 8080
     to:
       kind: Service
-      name: spring-boot-configmap-greeting
+      name: spring-boot-configmap
 
