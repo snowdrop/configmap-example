@@ -36,7 +36,7 @@ parameters:
   displayName:
   required: false
 - name: SERVICE_ACCOUNT
-  description: Service account to be mounted with the pod created
+  description: Service account to be mounted with the created pod
   displayName: jenkins
   required: false
 objects:
@@ -100,7 +100,6 @@ objects:
   kind: Service
   metadata:
     annotations:
-      fabric8.io/git-commit: 0a10d945f2295d4400c0b0fb5e7fa593f632b82e
       fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
       prometheus.io/port: "9779"
       fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
@@ -130,7 +129,6 @@ objects:
   kind: DeploymentConfig
   metadata:
     annotations:
-      fabric8.io/git-commit: 0a10d945f2295d4400c0b0fb5e7fa593f632b82e
       fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap&var-version=8-SNAPSHOT
       fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
       fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
@@ -158,7 +156,6 @@ objects:
     template:
       metadata:
         annotations:
-          fabric8.io/git-commit: 0a10d945f2295d4400c0b0fb5e7fa593f632b82e
           fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap&var-version=8-SNAPSHOT
           fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
           fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
@@ -219,4 +216,3 @@ objects:
     to:
       kind: Service
       name: spring-boot-configmap
-
