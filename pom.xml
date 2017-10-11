@@ -24,22 +24,35 @@
   </parent>
 
   <groupId>io.openshift.booster</groupId>
-  <artifactId>spring-boot-configmap</artifactId>
+  <artifactId>spring-boot-configmap-parent</artifactId>
   <version>5-redhat-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-  <name>Spring Boot - ConfigMap</name>
-  <description>Spring Boot - ConfigMap</description>
+  <name>Spring Boot - ConfigMap - Parent</name>
+  <description>Spring Boot - ConfigMap - Parent</description>
 
   <properties>
-    <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-    <spring-boot.bom.version>2.0.0.redhat-77</spring-boot.bom.version>
+    <spring-boot.version>1.5.7.RELEASE</spring-boot.version>
+    <spring-boot.bom.version>1.5.7.redhat-13</spring-boot.bom.version>
   </properties>
+  
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${springboot.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.jboss.snowdrop</groupId>
-        <artifactId>spring-boot-1.4-bom</artifactId>
+        <groupId>me.snowdrop</groupId>
+        <artifactId>spring-boot-bom</artifactId>
         <version>${spring-boot.bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
@@ -47,106 +60,28 @@
     </dependencies>
   </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.fabric8</groupId>
-      <artifactId>spring-cloud-kubernetes-core</artifactId>
-    </dependency>
-
-    <!-- Apache Tomcat Dependency required -->
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-juli</artifactId>
-    </dependency>
-
-    <!-- Testing -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>true</filtering>
-      </testResource>
-    </testResources>
-
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot.version}</version>
-        <configuration>
-          <profiles>
-            <profile>local</profile>
-          </profiles>
-          <classifier>exec</classifier>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
   <profiles>
     <profile>
-      <id>openshift</id>
+      <id>licenses</id>
       <build>
         <plugins>
           <plugin>
-            <groupId>io.fabric8</groupId>
-            <artifactId>fabric8-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>fmp</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>resource</goal>
-                  <goal>build</goal>
-                </goals>
-              </execution>
-            </executions>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>license-maven-plugin</artifactId>
+            <inherited>false</inherited>
           </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>openshift-it</id>
-      <build>
-        <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>integration-test</goal>
-                  <goal>verify</goal>
-                </goals>
-              </execution>
-            </executions>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>xml-maven-plugin</artifactId>
+            <inherited>false</inherited>
           </plugin>
         </plugins>
       </build>
     </profile>
   </profiles>
+
+  <modules>
+    <module>greeting-service</module>
+    <module>tests</module>
+  </modules>
 </project>

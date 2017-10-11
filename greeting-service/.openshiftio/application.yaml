@@ -13,7 +13,7 @@ parameters:
 - name: SOURCE_REPOSITORY_REF
   description: The branch name for the application
   displayName: Source Branch
-  value: master
+  value: sb-1.5.x
   required: true
 - name: SOURCE_REPOSITORY_DIR
   description: The location within the source repo of the application
@@ -36,7 +36,7 @@ parameters:
   displayName:
   required: false
 - name: SERVICE_ACCOUNT
-  description: Service account to be mounted with the pod created
+  description: Service account to be mounted with the created pod
   displayName: jenkins
   required: false
 objects:
@@ -100,13 +100,13 @@ objects:
   kind: Service
   metadata:
     annotations:
-      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap
+      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
       prometheus.io/port: "9779"
-      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap
+      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
       fabric8.io/iconUrl: img/icons/spring-boot.svg
-      fabric8.io/git-branch: master
+      fabric8.io/git-branch: sb-1.5.x
       prometheus.io/scrape: "true"
-      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap
+      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
       fabric8.io/scm-tag: booster-parent-10
     labels:
       expose: "true"
@@ -130,11 +130,11 @@ objects:
   metadata:
     annotations:
       fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap&var-version=8-SNAPSHOT
-      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap
-      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap
+      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
+      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
       fabric8.io/iconUrl: img/icons/spring-boot.svg
-      fabric8.io/git-branch: master
-      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap
+      fabric8.io/git-branch: sb-1.5.x
+      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
       fabric8.io/scm-tag: booster-parent-10
     labels:
       app: spring-boot-configmap
@@ -157,11 +157,11 @@ objects:
       metadata:
         annotations:
           fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap&var-version=8-SNAPSHOT
-          fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap
-          fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap
+          fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
+          fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
           fabric8.io/iconUrl: img/icons/spring-boot.svg
-          fabric8.io/git-branch: master
-          fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap
+          fabric8.io/git-branch: sb-1.5.x
+          fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
           fabric8.io/scm-tag: booster-parent-10
         labels:
           app: spring-boot-configmap
@@ -177,12 +177,6 @@ objects:
                 fieldPath: metadata.namespace
           image: spring-boot-configmap:latest
           imagePullPolicy: IfNotPresent
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 180
           name: spring-boot
           ports:
           - containerPort: 8080
@@ -194,12 +188,6 @@ objects:
           - containerPort: 8778
             name: jolokia
             protocol: TCP
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 10
           securityContext:
             privileged: false
           serviceAccountName: ${SERVICE_ACCOUNT}
