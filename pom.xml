@@ -33,7 +33,7 @@
 
   <properties>
     <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
-    <spring-boot.bom.version>1.5.8.Beta2-redhat-7</spring-boot.bom.version>
+    <spring-boot.bom.version>1.5.8.Final-redhat-1</spring-boot.bom.version>
   </properties>
   
   <build>
