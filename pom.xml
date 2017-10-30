@@ -25,7 +25,7 @@
 
   <groupId>io.openshift.booster</groupId>
   <artifactId>spring-boot-configmap-parent</artifactId>
-  <version>5-redhat-SNAPSHOT</version>
+  <version>5-redhat</version>
   <packaging>pom</packaging>
 
   <name>Spring Boot - ConfigMap - Parent</name>
