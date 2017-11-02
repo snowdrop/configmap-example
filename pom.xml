@@ -28,8 +28,8 @@
   <version>12-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Spring Boot - ConfigMap - Parent</name>
-  <description>Spring Boot - ConfigMap - Parent</description>
+  <name>Spring Boot - ConfigMap Booster</name>
+  <description>Spring Boot - ConfigMap Booster</description>
 
   <properties>
     <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
