@@ -34,6 +34,8 @@
   <properties>
     <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
     <spring-boot.bom.version>1.5.8.Final</spring-boot.bom.version>
+    <arquillian.version>1.1.13.Final</arquillian.version>
+    <arquillian.cube.version>1.10.0</arquillian.cube.version>
   </properties>
   
   <build>
@@ -54,6 +56,22 @@
         <groupId>me.snowdrop</groupId>
         <artifactId>spring-boot-bom</artifactId>
         <version>${spring-boot.bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>${arquillian.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.arquillian.cube</groupId>
+        <artifactId>arquillian-cube-bom</artifactId>
+        <version>${arquillian.cube.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

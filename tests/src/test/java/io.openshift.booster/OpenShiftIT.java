@@ -16,67 +16,51 @@
 
 package io.openshift.booster;
 
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.Response;
-import io.fabric8.kubernetes.api.model.HasMetadata;
-import io.fabric8.kubernetes.api.model.Pod;
-import io.fabric8.kubernetes.client.internal.readiness.Readiness;
-import io.fabric8.openshift.api.model.DeploymentConfig;
-import io.fabric8.openshift.api.model.Route;
-import io.openshift.booster.test.OpenShiftTestAssistant;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
 import static com.jayway.awaitility.Awaitility.await;
 import static com.jayway.restassured.RestAssured.get;
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import java.net.URL;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import com.jayway.restassured.response.Response;
+import io.fabric8.kubernetes.api.model.Pod;
+import io.fabric8.kubernetes.client.internal.readiness.Readiness;
+import io.fabric8.openshift.client.OpenShiftClient;
+import org.arquillian.cube.kubernetes.api.Session;
+import org.arquillian.cube.openshift.impl.enricher.RouteURL;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@RunWith(Arquillian.class)
 public class OpenShiftIT {
-    private static final OpenShiftTestAssistant assistant = new OpenShiftTestAssistant();
     private static final String CONFIG_MAP_NAME = "app-config";
-    private static final String CONFIG_MAP_FILE = "target/test-classes/test-configmap.yml";
-    private static final String GREETING_SERVICE_APP = "spring-boot-configmap-greeting";
-    private static String greetingServiceURI;
+    private static final String GREETING_NAME = "spring-boot-configmap-greeting";
 
-    @BeforeClass
-    public static void prepare() throws Exception {
-        final String greetingServiceTemplate = System.getProperty("greetingServiceTemplate");
-        if(greetingServiceTemplate == null) {
-            throw new IllegalArgumentException("Greeting service template file location hasn't been provided! (Hint: usually in systemPropertyVariables of maven-failsafe-plugin configuration)");
-        }
-        greetingServiceURI = deployApp(GREETING_SERVICE_APP, greetingServiceTemplate);
-        assistant.deploy(CONFIG_MAP_NAME, new File(CONFIG_MAP_FILE));
+    @ArquillianResource
+    private OpenShiftClient oc;
 
-        await().atMost(5, TimeUnit.MINUTES).until(() -> {
-            List<Pod> list = assistant.client().pods().inNamespace(assistant.project()).list().getItems();
-            return !list.stream()
-                    .filter(pod -> pod.getMetadata().getName().startsWith(GREETING_SERVICE_APP))
-                    .filter(pod -> "running".equalsIgnoreCase(pod.getStatus().getPhase())).collect(Collectors.toList()).isEmpty();
-        });
+    @ArquillianResource
+    private Session session;
 
+    @RouteURL(GREETING_NAME)
+    private URL greetingServiceBase;
+
+    private String greetingServiceURI;
+
+    @Before
+    public void setup() throws Exception {
+        greetingServiceURI = greetingServiceBase + "api/greeting";
         waitForApp();
-
-        // record URI of greeting service so that we can access it later
-        greetingServiceURI += "/api/greeting";
-    }
-
-    @AfterClass
-    public static void cleanup() {
-        assistant.cleanup();
     }
 
     @Test
@@ -124,19 +108,19 @@ public class OpenShiftIT {
     }
 
     private void updateConfigMap() {
-        assistant.client()
-                .configMaps()
-                .withName(CONFIG_MAP_NAME)
-                .edit()
-                .addToData("application.properties", "greeting.message: Bonjour %s from a ConfigMap!")
-                .done();
+        oc
+          .configMaps()
+          .withName(CONFIG_MAP_NAME)
+          .edit()
+          .addToData("application.properties", "greeting.message: Bonjour %s from a ConfigMap!")
+          .done();
     }
 
     private void deleteConfigMap() {
-        assistant.client()
-                .configMaps()
-                .withName(CONFIG_MAP_NAME)
-                .delete();
+        oc
+          .configMaps()
+          .withName(CONFIG_MAP_NAME)
+          .delete();
     }
 
     private void rolloutChanges() {
@@ -145,20 +129,20 @@ public class OpenShiftIT {
     }
 
     private void scale(final int replicas) {
-        assistant.client()
-                .deploymentConfigs()
-                .inNamespace(assistant.project())
-                .withName(GREETING_SERVICE_APP)
-                .scale(replicas);
+        oc
+          .deploymentConfigs()
+          .inNamespace(session.getNamespace())
+          .withName(GREETING_NAME)
+          .scale(replicas);
 
         await().atMost(5, TimeUnit.MINUTES)
                 .until(() -> {
                     // ideally, we'd look at deployment config's status.availableReplicas field,
                     // but that's only available since OpenShift 3.5
-                    List<Pod> pods = assistant.client()
+                  List<Pod> pods = oc
                             .pods()
-                            .inNamespace(assistant.project())
-                            .withLabel("deploymentconfig", GREETING_SERVICE_APP)
+                    .inNamespace(session.getNamespace())
+                            .withLabel("deploymentconfig", GREETING_NAME)
                             .list()
                             .getItems();
                     return pods.size() == replicas && pods.stream()
@@ -166,7 +150,7 @@ public class OpenShiftIT {
                 });
     }
 
-    private static void waitForApp() {
+  private void waitForApp() {
         await().atMost(5, TimeUnit.MINUTES)
                 .until(() -> {
                     try {
@@ -176,28 +160,6 @@ public class OpenShiftIT {
                         return false;
                     }
                 });
-    }
-
-    /**
-     * @param name
-     * @param templatePath
-     * @return the app route
-     * @throws IOException
-     */
-    private static String deployApp(String name, String templatePath) throws IOException {
-        String appName;
-        List<? extends HasMetadata> entities = assistant.deploy(name, new File(templatePath));
-
-        Optional<String> first = entities.stream().filter(hm -> hm instanceof DeploymentConfig).map(hm -> (DeploymentConfig) hm)
-                .map(dc -> dc.getMetadata().getName()).findFirst();
-        if (first.isPresent()) {
-            appName = first.get();
-        } else {
-            throw new IllegalStateException("Application deployment config not found");
-        }
-        Route route = assistant.client().routes().inNamespace(assistant.project()).withName(appName).get();
-        assertThat(route).isNotNull();
-        return "http://" + route.getSpec().getHost();
     }
 
 }
