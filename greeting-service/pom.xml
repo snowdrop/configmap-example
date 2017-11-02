@@ -20,7 +20,7 @@
     <parent>
         <groupId>io.openshift.booster</groupId>
         <artifactId>spring-boot-configmap-parent</artifactId>
-        <version>6-redhat</version>
+        <version>7-redhat-SNAPSHOT</version>
     </parent>
 
     <artifactId>spring-boot-configmap</artifactId>
