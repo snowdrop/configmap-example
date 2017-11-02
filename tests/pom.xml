@@ -20,7 +20,7 @@
   <parent>
     <groupId>io.openshift.booster</groupId>
     <artifactId>spring-boot-configmap-parent</artifactId>
-    <version>12</version>
+    <version>13-SNAPSHOT</version>
   </parent>
 
   <artifactId>spring-boot-configmap-tests</artifactId>
