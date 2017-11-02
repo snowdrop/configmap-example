@@ -25,8 +25,8 @@
 
     <artifactId>spring-boot-configmap</artifactId>
 
-    <name>Spring Boot - ConfigMap - Greeting Service</name>
-    <description>Spring Boot - ConfigMap - Greeting Service</description>
+    <name>Spring Boot - ConfigMap Booster - Greeting Service</name>
+    <description>Spring Boot - ConfigMap Booster - Greeting Service</description>
 
 
     <dependencies>

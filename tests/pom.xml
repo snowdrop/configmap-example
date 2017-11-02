@@ -25,8 +25,8 @@
 
   <artifactId>spring-boot-configmap-tests</artifactId>
 
-  <name>Spring Boot - ConfigMap - Integration Tests</name>
-  <description>Spring Boot - ConfigMap - Integration Tests</description>
+  <name>Spring Boot - ConfigMap Booster - Tests</name>
+  <description>Spring Boot - ConfigMap Booster - Tests</description>
 
   <properties>
     <fabric8.clients.version>1.4.34</fabric8.clients.version>
