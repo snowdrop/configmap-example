@@ -23,7 +23,7 @@
         <version>7-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>spring-boot-configmap</artifactId>
+    <artifactId>spring-boot-configmap-greeting</artifactId>
 
     <name>Spring Boot - ConfigMap Booster - Greeting Service</name>
     <description>Spring Boot - ConfigMap Booster - Greeting Service</description>

@@ -52,7 +52,7 @@
 
     <dependency>
       <groupId>io.openshift.booster</groupId>
-      <artifactId>spring-boot-configmap</artifactId>
+      <artifactId>spring-boot-configmap-greeting</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
