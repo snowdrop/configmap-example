@@ -49,7 +49,7 @@ public class OpenShiftIT {
     private static final OpenShiftTestAssistant assistant = new OpenShiftTestAssistant();
     private static final String CONFIG_MAP_NAME = "app-config";
     private static final String CONFIG_MAP_FILE = "target/test-classes/test-configmap.yml";
-    private static final String GREETING_SERVICE_APP = "spring-boot-configmap";
+    private static final String GREETING_SERVICE_APP = "spring-boot-configmap-greeting";
     private static String greetingServiceURI;
 
     @BeforeClass
