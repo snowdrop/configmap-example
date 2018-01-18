@@ -39,6 +39,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.mockito.internal.matchers.GreaterOrEqual;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(Arquillian.class)
@@ -93,10 +94,9 @@ public class OpenShiftIT {
         deleteConfigMap();
         rolloutChanges();
         await().atMost(5, TimeUnit.MINUTES)
-                .catchUncaughtExceptions()
+            .ignoreExceptions()
                 .until(() ->
-                        get(greetingServiceURI).then()
-                                .statusCode(500)
+                    get(greetingServiceURI).then().statusCode(new GreaterOrEqual<>(500))
                 );
     }
 
