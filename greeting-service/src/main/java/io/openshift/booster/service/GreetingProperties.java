@@ -18,21 +18,16 @@ package io.openshift.booster.service;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.NotNull;
 
 @Component
 @ConfigurationProperties("greeting")
-@Validated
 public class GreetingProperties {
 
     /**
      * This message has to be set in the application.properties file. If application is executed locally, "local" profile is
      * expected. On OpenShift, this property is set by a ConfigMap.
      */
-    @NotNull(message = "Greeting message was not set in the properties")
-    private String message;
+    private String message = null;
 
     public String getMessage() {
         return message;
