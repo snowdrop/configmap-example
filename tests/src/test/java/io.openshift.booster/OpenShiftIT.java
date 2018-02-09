@@ -31,6 +31,7 @@ import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.client.internal.readiness.Readiness;
 import io.fabric8.openshift.client.OpenShiftClient;
 import org.arquillian.cube.kubernetes.api.Session;
+import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -52,6 +53,7 @@ public class OpenShiftIT {
     @ArquillianResource
     private Session session;
 
+    @AwaitRoute(path = "/api/greeting")
     @RouteURL(GREETING_NAME)
     private URL greetingServiceBase;
 
