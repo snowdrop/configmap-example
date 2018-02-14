@@ -30,6 +30,10 @@
   <name>Spring Boot - ConfigMap Booster</name>
   <description>Spring Boot - ConfigMap Booster</description>
 
+  <properties>
+    <fabric8-maven-plugin.version>3.5.30</fabric8-maven-plugin.version>
+  </properties>
+
   <profiles>
     <profile>
       <id>licenses</id>
