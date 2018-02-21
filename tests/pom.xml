@@ -71,6 +71,13 @@
       <artifactId>spring-boot-configmap-greeting</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>io.fabric8</groupId>
+      <artifactId>openshift-client</artifactId>
+      <version>3.1.8</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
