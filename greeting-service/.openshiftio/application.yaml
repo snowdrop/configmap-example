@@ -107,7 +107,7 @@ objects:
   metadata:
     labels:
       app: spring-boot-configmap
-      provider: fabric8
+      provider: snowdrop
       version: BOOSTER_VERSION
       group: io.openshift.booster
     name: spring-boot-configmap
@@ -119,14 +119,14 @@ objects:
       targetPort: 8080
     selector:
       app: spring-boot-configmap
-      provider: fabric8
+      provider: snowdrop
       group: io.openshift.booster
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
       app: spring-boot-configmap
-      provider: fabric8
+      provider: snowdrop
       version: BOOSTER_VERSION
       group: io.openshift.booster
     name: spring-boot-configmap
@@ -135,7 +135,7 @@ objects:
     revisionHistoryLimit: 2
     selector:
       app: spring-boot-configmap
-      provider: fabric8
+      provider: snowdrop
       group: io.openshift.booster
     strategy:
       rollingParams:
@@ -145,7 +145,7 @@ objects:
       metadata:
         labels:
           app: spring-boot-configmap
-          provider: fabric8
+          provider: snowdrop
           version: BOOSTER_VERSION
           group: io.openshift.booster
       spec:
@@ -186,7 +186,7 @@ objects:
   metadata:
     labels:
       app: spring-boot-configmap
-      provider: fabric8
+      provider: snowdrop
       version: BOOSTER_VERSION
       group: io.openshift.booster
     name: spring-boot-configmap
