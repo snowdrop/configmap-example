@@ -1,10 +1,16 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: launchpad-builder
+  name: spring-boot-configmap-greeting
   annotations:
-    description: This template creates a Build Configuration using an S2I builder.
-    tags: instant-app
+    iconClass: icon-spring
+    tags: spring-boot, configmap, java, microservice
+    openshift.io/display-name: Spring Boot - Properties externalized using Config Map
+    openshift.io/provider-display-name: "Red Hat, Inc."
+    openshift.io/documentation-url: "https://appdev.prod-preview.openshift.io/docs/spring-boot-runtime.html#mission-configmap-spring-boot-tomcat"
+    description: >-
+      The Externalized Configuration Mission provides a basic example of using a ConfigMap to externalize configuration.
+      ConfigMap is an object used by OpenShift to inject configuration data as simple key and value pairs into one or more Linux containers while keeping the containers independent of OpenShift.
 parameters:
 - name: SOURCE_REPOSITORY_URL
   description: The source URL for the application
@@ -63,14 +69,13 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: spring-boot-configmap:13
+        name: spring-boot-configmap:BOOSTER_VERSION
     postCommit: {}
     resources: {}
     source:
       git:
         uri: ${SOURCE_REPOSITORY_URL}
         ref: ${SOURCE_REPOSITORY_REF}
-      #contextDir: ${SOURCE_REPOSITORY_DIR}
       type: Git
     strategy:
       sourceStrategy:
@@ -100,20 +105,10 @@ objects:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
-      prometheus.io/port: "9779"
-      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
-      fabric8.io/iconUrl: img/icons/spring-boot.svg
-      fabric8.io/git-branch: sb-1.5.x
-      prometheus.io/scrape: "true"
-      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
-      fabric8.io/scm-tag: booster-parent-11
     labels:
-      expose: "true"
       app: spring-boot-configmap
       provider: fabric8
-      version: "13"
+      version: BOOSTER_VERSION
       group: io.openshift.booster
     name: spring-boot-configmap
   spec:
@@ -129,18 +124,10 @@ objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
-    annotations:
-      fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap&var-version=13
-      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
-      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
-      fabric8.io/iconUrl: img/icons/spring-boot.svg
-      fabric8.io/git-branch: sb-1.5.x
-      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
-      fabric8.io/scm-tag: booster-parent-11
     labels:
       app: spring-boot-configmap
       provider: fabric8
-      version: "13"
+      version: BOOSTER_VERSION
       group: io.openshift.booster
     name: spring-boot-configmap
   spec:
@@ -156,18 +143,10 @@ objects:
       type: Rolling
     template:
       metadata:
-        annotations:
-          fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-configmap&var-version=13
-          fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
-          fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-configmap-parent/spring-boot-configmap
-          fabric8.io/iconUrl: img/icons/spring-boot.svg
-          fabric8.io/git-branch: sb-1.5.x
-          fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-configmap-parent/spring-boot-configmap
-          fabric8.io/scm-tag: booster-parent-11
         labels:
           app: spring-boot-configmap
           provider: fabric8
-          version: "13"
+          version: BOOSTER_VERSION
           group: io.openshift.booster
       spec:
         containers:
@@ -176,7 +155,7 @@ objects:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-          image: spring-boot-configmap:13
+          image: spring-boot-configmap:BOOSTER_VERSION
           imagePullPolicy: IfNotPresent
           name: spring-boot
           ports:
@@ -200,7 +179,7 @@ objects:
         - spring-boot
         from:
           kind: ImageStreamTag
-          name: spring-boot-configmap:13
+          name: spring-boot-configmap:BOOSTER_VERSION
       type: ImageChange
 - apiVersion: v1
   kind: Route
@@ -208,7 +187,7 @@ objects:
     labels:
       app: spring-boot-configmap
       provider: fabric8
-      version: "13"
+      version: BOOSTER_VERSION
       group: io.openshift.booster
     name: spring-boot-configmap
   spec:
