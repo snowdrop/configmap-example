@@ -57,10 +57,10 @@ objects:
     name: runtime
   spec:
     tags:
-    - name: latest
+    - name: "RUNTIME_VERSION"
       from:
         kind: DockerImage
-        name: registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift
+        name: registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:RUNTIME_VERSION
 - apiVersion: v1
   kind: BuildConfig
   metadata:
@@ -81,7 +81,7 @@ objects:
       sourceStrategy:
         from:
           kind: ImageStreamTag
-          name: runtime:latest
+          name: runtime:RUNTIME_VERSION
         incremental: true
         env:
         - name: MAVEN_ARGS_APPEND
@@ -108,7 +108,7 @@ objects:
     labels:
       app: spring-boot-configmap
       provider: snowdrop
-      version: BOOSTER_VERSION
+      version: "BOOSTER_VERSION"
       group: io.openshift.booster
     name: spring-boot-configmap
   spec:
@@ -127,7 +127,7 @@ objects:
     labels:
       app: spring-boot-configmap
       provider: snowdrop
-      version: BOOSTER_VERSION
+      version: "BOOSTER_VERSION"
       group: io.openshift.booster
     name: spring-boot-configmap
   spec:
@@ -146,7 +146,7 @@ objects:
         labels:
           app: spring-boot-configmap
           provider: snowdrop
-          version: BOOSTER_VERSION
+          version: "BOOSTER_VERSION"
           group: io.openshift.booster
       spec:
         containers:
@@ -187,7 +187,7 @@ objects:
     labels:
       app: spring-boot-configmap
       provider: snowdrop
-      version: BOOSTER_VERSION
+      version: "BOOSTER_VERSION"
       group: io.openshift.booster
     name: spring-boot-configmap
   spec:
