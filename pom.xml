@@ -24,7 +24,7 @@
   </parent>
 
   <artifactId>spring-boot-configmap-parent</artifactId>
-  <version>1.5.10-2-redhat-SNAPSHOT</version>
+  <version>1.5.10-2-redhat</version>
   <packaging>pom</packaging>
 
   <name>Spring Boot - ConfigMap Booster</name>
