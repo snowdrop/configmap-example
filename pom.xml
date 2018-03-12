@@ -24,7 +24,7 @@
   </parent>
 
   <artifactId>spring-boot-configmap-parent</artifactId>
-  <version>1.5.10-5</version>
+  <version>1.5.10-6-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Spring Boot - ConfigMap Booster</name>
