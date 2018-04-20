@@ -45,7 +45,7 @@ import org.junit.runners.MethodSorters;
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
     private static final String CONFIG_MAP_NAME = "app-config";
-    private static final String GREETING_NAME = "spring-boot-configmap-greeting";
+    private static final String GREETING_NAME = "spring-boot-configmap";
 
     @ArquillianResource
     private OpenShiftClient oc;
@@ -114,7 +114,7 @@ public class OpenShiftIT {
           .configMaps()
           .withName(CONFIG_MAP_NAME)
           .edit()
-          .addToData("application.properties", "greeting.message: Bonjour %s from a ConfigMap!")
+          .addToData("application.yml", "greeting.message: Bonjour %s from a ConfigMap!")
           .done();
     }
 

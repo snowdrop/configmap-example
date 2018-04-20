@@ -23,42 +23,68 @@
     <version>1.5.12-3-rhoar</version>
   </parent>
 
-  <artifactId>spring-boot-configmap-parent</artifactId>
+  <artifactId>spring-boot-configmap</artifactId>
   <version>1.5.12-3-redhat-SNAPSHOT</version>
-  <packaging>pom</packaging>
 
   <name>Spring Boot - ConfigMap Booster</name>
   <description>Spring Boot - ConfigMap Booster</description>
 
-  
+  <properties>
+    <openshift-client.version>3.1.8</openshift-client.version>
+  </properties>
 
-  <profiles>
-    <profile>
-      <id>licenses</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>license-maven-plugin</artifactId>
-            <inherited>false</inherited>
-            <configuration>
-              <excludedArtifacts>
-                spring-boot-configmap
-              </excludedArtifacts>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>xml-maven-plugin</artifactId>
-            <inherited>false</inherited>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-kubernetes-config</artifactId>
+    </dependency>
 
-  <modules>
-    <module>greeting-service</module>
-    <module>tests</module>
-  </modules>
+    <!-- Testing -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-standalone</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.arquillian.cube</groupId>
+      <artifactId>arquillian-cube-openshift</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>io.undertow</groupId>
+          <artifactId>undertow-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>io.fabric8</groupId>
+      <artifactId>openshift-client</artifactId>
+      <version>${openshift-client.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <profiles>
+            <profile>local</profile>
+          </profiles>
+          <classifier>exec</classifier>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
