@@ -1,2 +1,3 @@
 # If OpenShift ConfigMap wasn't deployed and application is running locally, we can set greeting.message here.
-greeting.message=Hello, %s!
+greeting:
+  message: "Hello, %s!"
