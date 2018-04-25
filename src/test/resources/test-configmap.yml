@@ -5,4 +5,4 @@ metadata:
 data:
   application.yml: |
     greeting:
-      message: "Hello, %s, from a ConfigMap!"
+      message: "Hello %s from a ConfigMap!"

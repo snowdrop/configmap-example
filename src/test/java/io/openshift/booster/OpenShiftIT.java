@@ -77,7 +77,7 @@ public class OpenShiftIT {
                 .get(greetingServiceURI)
                 .then()
                 .statusCode(200)
-                .body("content", is("Hello, John, from a ConfigMap!"));
+                .body("content", is("Hello John from a ConfigMap!"));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class OpenShiftIT {
         when().get(greetingServiceURI)
                 .then()
                 .statusCode(200)
-                .body("content", is(String.format("%s, World, from a ConfigMap!", greeting)));
+                .body("content", is(String.format("%s World from a ConfigMap!", greeting)));
     }
 
     private void updateConfigMap() {
@@ -114,7 +114,7 @@ public class OpenShiftIT {
           .configMaps()
           .withName(CONFIG_MAP_NAME)
           .edit()
-          .addToData("application.yml", "greeting.message: Bonjour, %s, from a ConfigMap!")
+          .addToData("application.yml", "greeting.message: Bonjour %s from a ConfigMap!")
           .done();
     }
 
