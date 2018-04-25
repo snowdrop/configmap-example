@@ -1,0 +1,27 @@
+spec:
+  template:
+    spec:
+      # Declare a volume mounting the config map
+      volumes:
+        - configMap:
+            # Name of the config map
+            name: app-config
+            optional: true
+            # Define the items from the config map to mount
+            items:
+            - key: application.yml
+              path: application.yml
+            # Volume name (used as reference below)
+          name: config
+      containers:
+        - env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: SPRING_BOOT_CONFIG_PATH
+              value: '/deployments/config/application.yml'
+          volumeMounts:
+            - name: config
+              mountPath: /deployments/config

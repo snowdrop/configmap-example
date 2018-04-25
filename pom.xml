@@ -24,7 +24,7 @@
   </parent>
 
   <artifactId>spring-boot-configmap</artifactId>
-  <version>1.5.12-3-redhat-SNAPSHOT</version>
+  <version>1.5.12-1-osio-SNAPSHOT</version>
 
   <name>Spring Boot - ConfigMap Booster</name>
   <description>Spring Boot - ConfigMap Booster</description>
@@ -39,8 +39,8 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-kubernetes-config</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
     <!-- Testing -->

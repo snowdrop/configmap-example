@@ -19,7 +19,7 @@ parameters:
 - name: SOURCE_REPOSITORY_REF
   description: The branch name for the application
   displayName: Source Branch
-  value: master
+  value: osio
   required: true
 - name: SOURCE_REPOSITORY_DIR
   description: The location within the source repo of the application
