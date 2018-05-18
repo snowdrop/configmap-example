@@ -24,7 +24,7 @@
   </parent>
 
   <artifactId>spring-boot-configmap</artifactId>
-  <version>1.5.12-4-SNAPSHOT</version>
+  <version>1.5.13-1-SNAPSHOT</version>
 
   <name>Spring Boot - ConfigMap Booster</name>
   <description>Spring Boot - ConfigMap Booster</description>
