@@ -20,11 +20,11 @@
   <parent>
     <groupId>io.openshift.booster</groupId>
     <artifactId>spring-boot-booster-parent</artifactId>
-    <version>1.5.12-3-rhoar</version>
+    <version>1.5.13-2-rhoar</version>
   </parent>
 
   <artifactId>spring-boot-configmap</artifactId>
-  <version>1.5.12-2-osio-SNAPSHOT</version>
+  <version>1.5.13-1-osio-SNAPSHOT</version>
 
   <name>Spring Boot - ConfigMap Booster</name>
   <description>Spring Boot - ConfigMap Booster</description>
