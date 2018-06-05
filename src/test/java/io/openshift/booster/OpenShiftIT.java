@@ -45,7 +45,7 @@ import org.junit.runners.MethodSorters;
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
     private static final String CONFIG_MAP_NAME = "app-config";
-    private static final String GREETING_NAME = "spring-boot-configmap";
+    private static final String GREETING_NAME = System.getProperty("app.name");
 
     @ArquillianResource
     private OpenShiftClient oc;
@@ -54,7 +54,7 @@ public class OpenShiftIT {
     private Session session;
 
     @AwaitRoute(path = "/api/greeting")
-    @RouteURL(GREETING_NAME)
+    @RouteURL("${app.name}")
     private URL greetingServiceBase;
 
     private String greetingServiceURI;
