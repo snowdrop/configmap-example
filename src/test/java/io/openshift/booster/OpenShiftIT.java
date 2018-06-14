@@ -16,20 +16,20 @@
 
 package io.openshift.booster;
 
-import static com.jayway.awaitility.Awaitility.await;
-import static com.jayway.restassured.RestAssured.get;
-import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.RestAssured.when;
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.Is.is;
 
 import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import com.jayway.restassured.response.Response;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.client.internal.readiness.Readiness;
 import io.fabric8.openshift.client.OpenShiftClient;
+import io.restassured.response.Response;
 import org.arquillian.cube.kubernetes.api.Session;
 import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
@@ -96,10 +96,7 @@ public class OpenShiftIT {
         rolloutChanges();
         await().atMost(5, TimeUnit.MINUTES)
                 .catchUncaughtExceptions()
-                .until(() ->
-                        get(greetingServiceURI).then()
-                                .statusCode(500)
-                );
+                .until(() -> get(greetingServiceURI).getStatusCode() == 500);
     }
 
     private void verifyEndpoint(final String greeting) {
@@ -110,19 +107,17 @@ public class OpenShiftIT {
     }
 
     private void updateConfigMap() {
-        oc
-          .configMaps()
-          .withName(CONFIG_MAP_NAME)
-          .edit()
-          .addToData("application.yml", "greeting.message: Bonjour %s from a ConfigMap!")
-          .done();
+        oc.configMaps()
+                .withName(CONFIG_MAP_NAME)
+                .edit()
+                .addToData("application.yml", "greeting.message: Bonjour %s from a ConfigMap!")
+                .done();
     }
 
     private void deleteConfigMap() {
-        oc
-          .configMaps()
-          .withName(CONFIG_MAP_NAME)
-          .delete();
+        oc.configMaps()
+                .withName(CONFIG_MAP_NAME)
+                .delete();
     }
 
     private void rolloutChanges() {
@@ -131,19 +126,18 @@ public class OpenShiftIT {
     }
 
     private void scale(final int replicas) {
-        oc
-          .deploymentConfigs()
-          .inNamespace(session.getNamespace())
-          .withName(GREETING_NAME)
-          .scale(replicas);
+        oc.deploymentConfigs()
+                .inNamespace(session.getNamespace())
+                .withName(GREETING_NAME)
+                .scale(replicas);
 
         await().atMost(5, TimeUnit.MINUTES)
                 .until(() -> {
                     // ideally, we'd look at deployment config's status.availableReplicas field,
                     // but that's only available since OpenShift 3.5
-                  List<Pod> pods = oc
+                    List<Pod> pods = oc
                             .pods()
-                    .inNamespace(session.getNamespace())
+                            .inNamespace(session.getNamespace())
                             .withLabel("deploymentconfig", GREETING_NAME)
                             .list()
                             .getItems();
@@ -152,7 +146,7 @@ public class OpenShiftIT {
                 });
     }
 
-  private void waitForApp() {
+    private void waitForApp() {
         await().atMost(5, TimeUnit.MINUTES)
                 .until(() -> {
                     try {
