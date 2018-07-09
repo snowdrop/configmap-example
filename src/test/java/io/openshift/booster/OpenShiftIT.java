@@ -20,12 +20,8 @@ import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.Is.is;
 
-import io.fabric8.kubernetes.api.model.Pod;
-import io.fabric8.kubernetes.client.internal.readiness.Readiness;
 import io.fabric8.openshift.client.OpenShiftClient;
-import io.restassured.response.Response;
 import java.net.URL;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.arquillian.cube.kubernetes.api.Session;
 import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
@@ -137,16 +133,13 @@ public class OpenShiftIT {
 
         await().atMost(5, TimeUnit.MINUTES)
                 .until(() -> {
-                    // ideally, we'd look at deployment config's status.availableReplicas field,
-                    // but that's only available since OpenShift 3.5
-                    List<Pod> pods = oc
-                            .pods()
+                    return oc
+                            .deploymentConfigs()
                             .inNamespace(session.getNamespace())
-                            .withLabel("deploymentconfig", GREETING_NAME)
-                            .list()
-                            .getItems();
-                    return pods.size() == replicas && pods.stream()
-                            .allMatch(Readiness::isPodReady);
+                            .withName(GREETING_NAME)
+                            .get()
+                            .getStatus()
+                            .getAvailableReplicas() == replicas;
                 });
     }
 
