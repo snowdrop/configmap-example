@@ -16,20 +16,13 @@
 
 package io.openshift.booster;
 
-import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.Is.is;
 
-import java.net.URL;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import io.fabric8.kubernetes.api.model.Pod;
-import io.fabric8.kubernetes.client.internal.readiness.Readiness;
 import io.fabric8.openshift.client.OpenShiftClient;
-import io.restassured.response.Response;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
 import org.arquillian.cube.kubernetes.api.Session;
 import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
@@ -44,8 +37,10 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
+
     private static final String CONFIG_MAP_NAME = "app-config";
     private static final String GREETING_NAME = System.getProperty("app.name");
+    protected static final String GREETING_PATH = "api/greeting";
 
     @ArquillianResource
     private OpenShiftClient oc;
@@ -57,11 +52,8 @@ public class OpenShiftIT {
     @RouteURL("${app.name}")
     private URL greetingServiceBase;
 
-    private String greetingServiceURI;
-
     @Before
     public void setup() throws Exception {
-        greetingServiceURI = greetingServiceBase + "api/greeting";
         waitForApp();
     }
 
@@ -72,12 +64,14 @@ public class OpenShiftIT {
 
     @Test
     public void testBGreetingEndpointWithNameParameter() {
-        given().param("name", "John")
-                .when()
-                .get(greetingServiceURI)
-                .then()
-                .statusCode(200)
-                .body("content", is("Hello John from a ConfigMap!"));
+        given()
+           .baseUri(greetingServiceBase.toString())
+           .param("name", "John")
+           .when()
+           .get(GREETING_PATH)
+           .then()
+           .statusCode(200)
+           .body("content", is("Hello John from a ConfigMap!"));
     }
 
     @Test
@@ -96,11 +90,17 @@ public class OpenShiftIT {
         rolloutChanges();
         await().atMost(5, TimeUnit.MINUTES)
                 .catchUncaughtExceptions()
-                .until(() -> get(greetingServiceURI).getStatusCode() == 500);
+                .until(
+                        () -> given()
+                                .baseUri(greetingServiceBase.toString())
+                                .get(GREETING_PATH)
+                                .getStatusCode() == 500
+                );
     }
 
     private void verifyEndpoint(final String greeting) {
-        when().get(greetingServiceURI)
+        given().baseUri(greetingServiceBase.toString())
+                .get(GREETING_PATH)
                 .then()
                 .statusCode(200)
                 .body("content", is(String.format("%s World from a ConfigMap!", greeting)));
@@ -133,29 +133,24 @@ public class OpenShiftIT {
 
         await().atMost(5, TimeUnit.MINUTES)
                 .until(() -> {
-                    // ideally, we'd look at deployment config's status.availableReplicas field,
-                    // but that's only available since OpenShift 3.5
-                    List<Pod> pods = oc
-                            .pods()
+                    return oc
+                            .deploymentConfigs()
                             .inNamespace(session.getNamespace())
-                            .withLabel("deploymentconfig", GREETING_NAME)
-                            .list()
-                            .getItems();
-                    return pods.size() == replicas && pods.stream()
-                            .allMatch(Readiness::isPodReady);
+                            .withName(GREETING_NAME)
+                            .get()
+                            .getStatus()
+                            .getAvailableReplicas() == replicas;
                 });
     }
 
     private void waitForApp() {
         await().atMost(5, TimeUnit.MINUTES)
-                .until(() -> {
-                    try {
-                        final Response response = get(greetingServiceURI);
-                        return response.getStatusCode() == 200;
-                    } catch (final Exception e) {
-                        return false;
-                    }
-                });
+                .until(
+                        () -> given()
+                                .baseUri(greetingServiceBase.toString())
+                                .get(GREETING_PATH)
+                                .getStatusCode() == 200
+                );
     }
 
 }
