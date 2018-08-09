@@ -74,7 +74,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: spring-boot-configmap:BOOSTER_VERSION
+        name: spring-boot-configmap:1.5.15-2
     postCommit: {}
     resources: {}
     source:
