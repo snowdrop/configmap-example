@@ -23,7 +23,7 @@
   </parent>
   <groupId>io.openshift.booster</groupId>
   <artifactId>spring-boot-configmap</artifactId>
-  <version>1.5.19-1-SNAPSHOT</version>
+  <version>1.5.19-1-redhat</version>
   <name>Spring Boot - ConfigMap Booster</name>
   <description>Spring Boot - ConfigMap Booster</description>
   <properties>
@@ -33,7 +33,7 @@
     <openshift-client.version>3.1.8</openshift-client.version>
     <rest-assured.version>3.1.0</rest-assured.version>
     <spring-boot.version>1.5.19.RELEASE</spring-boot.version>
-    <spring-boot-bom.version>1.5.19.Beta1</spring-boot-bom.version>
+    <spring-boot-bom.version>1.5.19.Beta1-redhat-00001</spring-boot-bom.version>
     <fabric8.generator.from>
       registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:${openjdk18-openshift.version}
     </fabric8.generator.from>
