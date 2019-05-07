@@ -21,11 +21,11 @@
     <artifactId>booster-parent</artifactId>
     <version>23</version>
   </parent>
-  <groupId>io.openshift.booster</groupId>
-  <artifactId>spring-boot-configmap</artifactId>
+  <groupId>dev.snowdrop.example</groupId>
+  <artifactId>configmap</artifactId>
   <version>1.5.19-3-SNAPSHOT</version>
-  <name>Spring Boot - ConfigMap Booster</name>
-  <description>Spring Boot - ConfigMap Booster</description>
+  <name>Spring Boot - ConfigMap Example</name>
+  <description>Spring Boot - ConfigMap Example</description>
   <properties>
     <arquillian.version>1.4.0.Final</arquillian.version>
     <awaitility.version>3.1.0</awaitility.version>
