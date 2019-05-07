@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.openshift.booster;
+package dev.snowdrop.example;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
-import io.openshift.booster.service.GreetingProperties;
+import dev.snowdrop.example.service.GreetingProperties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BoosterApplicationTest {
+public class ExampleApplicationTest {
 
     protected static final String GREETING_PATH = "api/greeting";
     @Value("${local.server.port}")

@@ -14,15 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.openshift.booster;
+package dev.snowdrop.example.service;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+public class Greeting {
 
-@SpringBootApplication
-public class BoosterApplication {
+    private final String content;
 
-    public static void main(String[] args) {
-        SpringApplication.run(BoosterApplication.class, args);
+    public Greeting() {
+        this.content = null;
+    }
+
+    public Greeting(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
     }
 }
