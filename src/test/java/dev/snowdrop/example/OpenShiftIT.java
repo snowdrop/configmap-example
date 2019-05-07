@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
