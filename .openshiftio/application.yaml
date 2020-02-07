@@ -74,7 +74,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: configmap:BOOSTER_VERSION
+        name: configmap:2.1.12-2
     postCommit: {}
     resources: {}
     source:
@@ -113,7 +113,7 @@ objects:
     labels:
       app: configmap
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.1.12-2"
       group: dev.snowdrop.example
     name: configmap
   spec:
@@ -132,7 +132,7 @@ objects:
     labels:
       app: configmap
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.1.12-2"
       group: dev.snowdrop.example
     name: configmap
   spec:
@@ -151,7 +151,7 @@ objects:
         labels:
           app: configmap
           provider: snowdrop
-          version: "BOOSTER_VERSION"
+          version: "2.1.12-2"
           group: dev.snowdrop.example
       spec:
         containers:
@@ -160,7 +160,7 @@ objects:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-          image: configmap:BOOSTER_VERSION
+          image: configmap:2.1.12-2
           imagePullPolicy: IfNotPresent
           name: spring-boot
           ports:
@@ -184,7 +184,7 @@ objects:
         - spring-boot
         from:
           kind: ImageStreamTag
-          name: configmap:BOOSTER_VERSION
+          name: configmap:2.1.12-2
       type: ImageChange
 - apiVersion: v1
   kind: Route
@@ -192,7 +192,7 @@ objects:
     labels:
       app: configmap
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.1.12-2"
       group: dev.snowdrop.example
     name: configmap
   spec:
