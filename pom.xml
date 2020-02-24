@@ -229,6 +229,42 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <resources>
+                <labels>
+                  <all>
+                    <property>
+                      <name>app.kubernetes.io/part-of</name>
+                      <value>configmap-example</value>
+                    </property>
+                    <property>
+                      <name>app.kubernetes.io/name</name>
+                      <value>configmap-service</value>
+                    </property>
+                    <property>
+                      <name>app.kubernetes.io/component</name>
+                      <value>frontend</value>
+                    </property>
+                    <property>
+                      <name>app.kubernetes.io/runtime</name>
+                      <value>snowdrop</value>
+                    </property>
+                    <property>
+                      <name>app.kubernetes.io/runtime-version</name>
+                      <value>${spring-boot.version}</value>
+                    </property>
+                  </all>
+                </labels>
+                <annotations>
+                  <all>
+                    <property>
+                      <name>app.kubernetes.io/vcs-uri</name>
+                      <value>git@github.com:snowdrop/configmap-example.git</value>
+                    </property>
+                  </all>
+                </annotations>
+              </resources>
+            </configuration>
           </plugin>
         </plugins>
       </build>
