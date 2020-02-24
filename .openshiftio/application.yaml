@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/part-of: configmap-example
     app.kubernetes.io/name: configmap-service
     app.kubernetes.io/component: frontend
-    app.kubernetes.io/runtime: snowdrop
+    app.kubernetes.io/runtime: spring-boot
     app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
   annotations:
     iconClass: icon-spring
@@ -71,7 +71,7 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
@@ -89,7 +89,7 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
@@ -141,7 +141,7 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
@@ -167,7 +167,7 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
@@ -193,7 +193,7 @@ objects:
           app.kubernetes.io/part-of: configmap-example
           app.kubernetes.io/name: configmap-service
           app.kubernetes.io/component: frontend
-          app.kubernetes.io/runtime: snowdrop
+          app.kubernetes.io/runtime: spring-boot
           app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
         annotations:
           app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
@@ -241,7 +241,7 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git

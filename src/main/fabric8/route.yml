@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/part-of: configmap-example
     app.kubernetes.io/name: configmap-service
     app.kubernetes.io/component: frontend
-    app.kubernetes.io/runtime: snowdrop
+    app.kubernetes.io/runtime: spring-boot
     app.kubernetes.io/runtime-version: ${spring-boot.version}
 spec:
   port:

@@ -247,7 +247,7 @@
                     </property>
                     <property>
                       <name>app.kubernetes.io/runtime</name>
-                      <value>snowdrop</value>
+                      <value>spring-boot</value>
                     </property>
                     <property>
                       <name>app.kubernetes.io/runtime-version</name>
