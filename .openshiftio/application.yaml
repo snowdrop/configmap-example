@@ -2,12 +2,19 @@ apiVersion: v1
 kind: Template
 metadata:
   name: configmap
+  labels:
+    app.kubernetes.io/part-of: configmap-example
+    app.kubernetes.io/name: configmap-service
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/runtime: spring-boot
+    app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
   annotations:
     iconClass: icon-spring
     tags: spring-boot, configmap, java, microservice
     openshift.io/display-name: Spring Boot - Properties externalized using Config Map
     openshift.io/provider-display-name: "Red Hat, Inc."
     openshift.io/documentation-url: "https://appdev.prod-preview.openshift.io/docs/spring-boot-runtime.html#mission-configmap-spring-boot-tomcat"
+    app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
     description: >-
       The Externalized Configuration Mission provides a basic example of using a ConfigMap to externalize configuration.
       ConfigMap is an object used by OpenShift to inject configuration data as simple key and value pairs into one or more Linux containers while keeping the containers independent of OpenShift.
@@ -60,6 +67,14 @@ objects:
   kind: ImageStream
   metadata:
     name: runtime
+    labels:
+      app.kubernetes.io/part-of: configmap-example
+      app.kubernetes.io/name: configmap-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
   spec:
     tags:
     - name: "${RUNTIME_VERSION}"
@@ -70,6 +85,14 @@ objects:
   kind: BuildConfig
   metadata:
     name: configmap
+    labels:
+      app.kubernetes.io/part-of: configmap-example
+      app.kubernetes.io/name: configmap-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
   spec:
     output:
       to:
@@ -115,6 +138,13 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: configmap-example
+      app.kubernetes.io/name: configmap-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
     name: configmap
   spec:
     ports:
@@ -134,6 +164,13 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: configmap-example
+      app.kubernetes.io/name: configmap-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
     name: configmap
   spec:
     replicas: 1
@@ -153,6 +190,13 @@ objects:
           provider: snowdrop
           version: "BOOSTER_VERSION"
           group: dev.snowdrop.example
+          app.kubernetes.io/part-of: configmap-example
+          app.kubernetes.io/name: configmap-service
+          app.kubernetes.io/component: frontend
+          app.kubernetes.io/runtime: spring-boot
+          app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+        annotations:
+          app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
       spec:
         containers:
         - env:
@@ -194,6 +238,13 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: configmap-example
+      app.kubernetes.io/name: configmap-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: spring-boot
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
     name: configmap
   spec:
     port:
