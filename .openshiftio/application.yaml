@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/part-of: configmap-example
     app.kubernetes.io/name: configmap-service
     app.kubernetes.io/component: frontend
-    app.kubernetes.io/runtime: spring-boot
-    app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    app.openshift.io/runtime: rh-spring-boot
+    app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
   annotations:
     iconClass: icon-spring
     tags: spring-boot, configmap, java, microservice
@@ -71,8 +71,8 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
   spec:
@@ -89,8 +89,8 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
   spec:
@@ -141,8 +141,8 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
     name: configmap
@@ -167,8 +167,8 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
     name: configmap
@@ -193,8 +193,8 @@ objects:
           app.kubernetes.io/part-of: configmap-example
           app.kubernetes.io/name: configmap-service
           app.kubernetes.io/component: frontend
-          app.kubernetes.io/runtime: spring-boot
-          app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+          app.openshift.io/runtime: rh-spring-boot
+          app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
         annotations:
           app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
       spec:
@@ -241,8 +241,8 @@ objects:
       app.kubernetes.io/part-of: configmap-example
       app.kubernetes.io/name: configmap-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: spring-boot
-      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime: rh-spring-boot
+      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
     name: configmap
