@@ -23,7 +23,7 @@
   </parent>
   <groupId>dev.snowdrop.example</groupId>
   <artifactId>configmap</artifactId>
-  <version>2.3.4-2-SNAPSHOT</version>
+  <version>2.3.4-2</version>
   <name>Spring Boot - ConfigMap Example</name>
   <description>Spring Boot - ConfigMap Example</description>
   <properties>
