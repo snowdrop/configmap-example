@@ -20,18 +20,21 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
 import dev.snowdrop.example.service.GreetingProperties;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ExampleApplicationTest {
+public class LocalTest {
 
-    protected static final String GREETING_PATH = "api/greeting";
+    private static final String GREETING_PATH = "api/greeting";
+
     @Value("${local.server.port}")
     private int port;
 
