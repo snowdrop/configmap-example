@@ -14,6 +14,8 @@ PROJECT_ABSOLUTE_DIR=$(dirname ${SCRIPT_ABSOLUTE_DIR})
 
 pushd ${PROJECT_ABSOLUTE_DIR} > /dev/null
 
+oc create -f .openshiftio/resource.configmap.yaml
+
 ./mvnw clean verify -Popenshift,openshift-it "$@"
 
 popd > /dev/null
