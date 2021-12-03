@@ -1,0 +1,6 @@
+# Dekorate
+dekorate:
+  openshift:
+    expose: true
+  s2i:
+    builder-image: registry.access.redhat.com/ubi8/openjdk-8:1.3
