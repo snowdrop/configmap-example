@@ -1,3 +1,0 @@
-# This properties file should be used to initialise a ConfigMap
-greeting:
-  message: "Hello %s from a ConfigMap!"
