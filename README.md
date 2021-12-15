@@ -11,6 +11,14 @@ https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-configmap-spri
 
 ## Deploying application on OpenShift using Dekorate
 
+Before deploying the application using Dekorate, make sure you have deployed the configmap first:
+
+```
+oc create -f .openshiftio/resource.configmap.yaml
+```
+
+Now, we can deploy the application using Dekorate:
+
 ```
 mvn clean verify -Popenshift -Ddekorate.deploy=true
 ```
