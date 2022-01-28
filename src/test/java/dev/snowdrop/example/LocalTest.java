@@ -19,18 +19,18 @@ package dev.snowdrop.example;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
-import dev.snowdrop.example.service.GreetingProperties;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import dev.snowdrop.example.service.GreetingProperties;
+
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = "spring.cloud.kubernetes.config.enabled=false")
 public class LocalTest {
 
     private static final String GREETING_PATH = "api/greeting";
