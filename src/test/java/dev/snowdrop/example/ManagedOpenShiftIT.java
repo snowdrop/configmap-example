@@ -16,17 +16,14 @@
 
 package dev.snowdrop.example;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import io.dekorate.testing.annotation.Inject;
+import io.dekorate.testing.annotation.Named;
 import io.dekorate.testing.openshift.annotation.OpenshiftIntegrationTest;
 import io.fabric8.kubernetes.client.KubernetesClient;
-import io.fabric8.openshift.api.model.Route;
-import io.fabric8.openshift.client.OpenShiftClient;
 
 @DisabledIfSystemProperty(named = "unmanaged-test", matches = "true")
 @OpenshiftIntegrationTest
@@ -34,21 +31,13 @@ public class ManagedOpenShiftIT extends AbstractOpenShiftIT {
     @Inject
     KubernetesClient kubernetesClient;
 
-    String baseUrl;
-
-    @BeforeEach
-    public void setup() throws MalformedURLException {
-        // TODO: In Dekorate 1.7, we can inject Routes directly, so we won't need to do this:
-        Route route = kubernetesClient.adapt(OpenShiftClient.class).routes().withName("configmap").get();
-        String protocol = route.getSpec().getTls() == null ? "http" : "https";
-        int port = "http".equals(protocol) ? 80 : 443;
-        URL url = new URL(protocol, route.getSpec().getHost(), port, route.getSpec().getPath());
-        baseUrl = url.toString();
-    }
+    @Inject
+    @Named("configmap")
+    URL baseUrl;
 
     @Override
     protected String baseURL() {
-        return baseUrl;
+        return baseUrl.toString();
     }
 
     @Override

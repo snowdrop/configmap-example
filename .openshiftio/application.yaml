@@ -247,6 +247,7 @@ objects:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/configmap-example.git
     name: configmap
   spec:
+    path: /
     port:
       targetPort: 8080
     to:
