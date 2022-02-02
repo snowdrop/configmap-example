@@ -1,3 +1,5 @@
+# Workaround for issue with Dekorate: https://github.com/dekorateio/dekorate/pull/851
+management.endpoints.web.exposure.include: health,info
 # Dekorate
 dekorate:
   openshift:
