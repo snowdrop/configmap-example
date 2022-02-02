@@ -1,3 +1,5 @@
+# Workaround for issue with Dekorate: https://github.com/dekorateio/dekorate/pull/851
+management.endpoints.web.exposure.include: health,info
 # This properties file should be used to initialise a ConfigMap
 greeting:
   message: "Hello %s from a test"

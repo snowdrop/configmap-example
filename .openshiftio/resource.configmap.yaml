@@ -2,7 +2,7 @@ apiVersion: v1
 kind: List
 items:
  # Setup the permission required to read the config map
- - apiVersion: v1
+ - apiVersion: authorization.openshift.io/v1
    kind: RoleBinding
    metadata:
      name: role-view-default
@@ -10,9 +10,11 @@ items:
     - kind: ServiceAccount
       name: default
    roleRef:
-      name: view
+     kind: Role
+     name: view
+     apiGroup: rbac.authorization.openshift.io
 
- - apiVersion: v1
+ - apiVersion: authorization.openshift.io/v1
    kind: RoleBinding
    metadata:
      name: role-view-jenkins
@@ -20,7 +22,9 @@ items:
     - kind: ServiceAccount
       name: jenkins
    roleRef:
-      name: view
+     kind: Role
+     name: view
+     apiGroup: rbac.authorization.openshift.io
 
  # ConfigMap to be created to pass application.yml content to Spring Boot
  - apiVersion: v1
