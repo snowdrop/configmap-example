@@ -4,7 +4,7 @@ SOURCE_REPOSITORY_REF=${2:-sb-2.5.x}
 
 source scripts/waitFor.sh
 
-helm install configmap ./helm --set spring-boot-example-app.s2i.source.repo=$SOURCE_REPOSITORY_URL --set spring-boot-example-app.s2i.source.ref=$SOURCE_REPOSITORY_REF
+helm install configmap ./helm --set app.route.expose=true --set app.s2i.source.repo=$SOURCE_REPOSITORY_URL --set app.s2i.source.ref=$SOURCE_REPOSITORY_REF
 if [[ $(waitFor "configmap" "app") -eq 1 ]] ; then
   echo "Application failed to deploy. Aborting"
   exit 1
