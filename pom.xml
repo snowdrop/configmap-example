@@ -32,6 +32,8 @@
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
     <spring-boot.version>2.5.8</spring-boot.version>
+    <!-- We need to exclude Kubernetes Client because it's in conflict with Dekorate dependency -->
+    <fabric8.version>5.10.0</fabric8.version>
   </properties>
   <licenses>
     <license>
@@ -42,6 +44,11 @@
     </license>
   </licenses>
   <repositories>
+    <repository>
+      <id>maven-central</id>
+      <name>Public Maven Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
     <repository>
       <id>redhat-ga</id>
       <name>Red Hat GA Repository</name>
@@ -54,6 +61,11 @@
     </repository>
   </repositories>
   <pluginRepositories>
+    <pluginRepository>
+      <id>maven-central</id>
+      <name>Public Maven Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </pluginRepository>
     <pluginRepository>
       <id>redhat-ga</id>
       <name>Red Hat GA Repository</name>
@@ -86,6 +98,11 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>io.fabric8</groupId>
+      <artifactId>kubernetes-client</artifactId>
+      <version>${fabric8.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
@@ -102,7 +119,7 @@
       <exclusions>
         <exclusion>
           <groupId>io.dekorate</groupId>
-          <artifactId>kubernetes-annotations</artifactId>
+          <artifactId>docker-annotations</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

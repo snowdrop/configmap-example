@@ -23,28 +23,29 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import io.dekorate.testing.annotation.Inject;
 import io.dekorate.testing.annotation.KubernetesIntegrationTest;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.LocalPortForward;
 
-@Disabled("It needs Dekorate profiles to configure. See https://github.com/dekorateio/dekorate/pull/824")
-@KubernetesIntegrationTest
-public class KubernetesIT {
+@EnabledIfSystemProperty(named = "unmanaged-test", matches = "true")
+@KubernetesIntegrationTest(deployEnabled = false, buildEnabled = false)
+public class UnmanagedKubernetesIT {
 
     private static final String GREETING_PATH = "api/greeting";
 
     @Inject
-    KubernetesClient kubernetesClient;
+    KubernetesClient client;
 
     LocalPortForward appPort;
 
     @BeforeEach
     public void setup() {
-        appPort = kubernetesClient.pods().withName("configmap").portForward(8080);
+        appPort = client.services().inNamespace(System.getProperty("kubernetes.namespace")).withName("configmap")
+                .portForward(8080);
     }
 
     @AfterEach
