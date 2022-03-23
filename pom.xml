@@ -19,11 +19,11 @@
   <parent>
     <groupId>dev.snowdrop</groupId>
     <artifactId>snowdrop-dependencies</artifactId>
-    <version>2.5.10.Beta6</version>
+    <version>2.5.10.Beta6-redhat-00001</version>
   </parent>
   <groupId>dev.snowdrop.example</groupId>
   <artifactId>configmap</artifactId>
-  <version>2.5.10-3-SNAPSHOT</version>
+  <version>2.5.10-3-redhat</version>
   <name>Spring Boot - ConfigMap Example</name>
   <description>Spring Boot - ConfigMap Example</description>
   <properties>
