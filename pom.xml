@@ -19,11 +19,11 @@
   <parent>
     <groupId>dev.snowdrop</groupId>
     <artifactId>snowdrop-dependencies</artifactId>
-    <version>2.5.10.Final</version>
+    <version>2.5.12.Beta1</version>
   </parent>
   <groupId>dev.snowdrop.example</groupId>
   <artifactId>configmap</artifactId>
-  <version>2.5.10-5-SNAPSHOT</version>
+  <version>2.5.12-1-SNAPSHOT</version>
   <name>Spring Boot - ConfigMap Example</name>
   <description>Spring Boot - ConfigMap Example</description>
   <properties>
@@ -31,7 +31,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
-    <spring-boot.version>2.5.10</spring-boot.version>
+    <spring-boot.version>2.5.12</spring-boot.version>
     <!-- We need to exclude Kubernetes Client because it's in conflict with Dekorate dependency -->
     <fabric8.version>5.10.0</fabric8.version>
   </properties>
