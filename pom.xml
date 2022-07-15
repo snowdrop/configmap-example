@@ -33,7 +33,7 @@
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
     <spring-boot.version>2.5.12</spring-boot.version>
     <!-- We need to exclude Kubernetes Client because it's in conflict with Dekorate dependency -->
-    <fabric8.version>5.10.0</fabric8.version>
+    <fabric8.version>5.11.2</fabric8.version>
   </properties>
   <licenses>
     <license>
