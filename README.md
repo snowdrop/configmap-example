@@ -5,6 +5,7 @@ https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-configmap-spri
 ## Table of Contents
 
 * [ConfigMap Spring Boot Example](#configmap-spring-boot-example)
+    * [Prerequisites](#prerequisites)
     * [Deploying application on OpenShift using Dekorate](#deploying-application-on-openshift-using-dekorate)
     * [Deploying application on OpenShift using Helm](#deploying-application-on-openshift-using-helm)
     * [Deploying application on Kubernetes using Helm](#deploying-application-on-kubernetes-using-helm)
@@ -12,6 +13,10 @@ https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-configmap-spri
     * [Running Tests on OpenShift using S2i from Source](#running-tests-on-openshift-using-s2i-from-source)
     * [Running Tests on OpenShift using Helm](#running-tests-on-openshift-using-helm)
     * [Running Tests on Kubernetes with Helm](#running-tests-on-kubernetes-using-helm)
+
+## Prerequisites
+
+- JDK 11+ installed with JAVA_HOME configured appropriately
 
 ## Deploying application on OpenShift using Dekorate
 
