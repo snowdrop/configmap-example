@@ -11,6 +11,12 @@ target
 bin
 tmp
 
+# VSCodium
+.vscode
+
+# Misc
+*.versionsBackup
+
 # OS generated files #
 ######################
 .DS_Store?
