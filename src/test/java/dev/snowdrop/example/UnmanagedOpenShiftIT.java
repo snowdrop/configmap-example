@@ -16,29 +16,17 @@
 
 package dev.snowdrop.example;
 
-import java.net.URL;
-
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import io.dekorate.testing.annotation.Inject;
-import io.dekorate.testing.annotation.Named;
 import io.dekorate.testing.openshift.annotation.OpenshiftIntegrationTest;
 import io.fabric8.kubernetes.client.KubernetesClient;
 
 @EnabledIfSystemProperty(named = "unmanaged-test", matches = "true")
 @OpenshiftIntegrationTest(deployEnabled = false, buildEnabled = false, pushEnabled = false)
-public class UnmanagedOpenShiftIT extends AbstractOpenShiftIT {
+public class UnmanagedOpenShiftIT extends AbstractIT {
     @Inject
     KubernetesClient kubernetesClient;
-
-    @Inject
-    @Named("configmap")
-    URL baseUrl;
-
-    @Override
-    protected String baseURL() {
-        return baseUrl.toString();
-    }
 
     @Override
     protected KubernetesClient kubernetesClient() {

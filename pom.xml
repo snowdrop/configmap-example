@@ -262,6 +262,15 @@
       </dependencies>
     </profile>
     <profile>
+      <id>helm</id>
+      <dependencies>
+        <dependency>
+          <groupId>io.dekorate</groupId>
+          <artifactId>helm-annotations</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
       <id>openshift-it</id>
       <build>
         <plugins>
