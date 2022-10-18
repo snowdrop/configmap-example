@@ -9,7 +9,7 @@ oc project $K8S_NAMESPACE
 ./mvnw -s .github/mvn-settings.xml clean package
 
 # Create docker image and tag it in registry
-IMAGE=configmap:latest
+IMAGE=configmap:helm
 docker build . -t $IMAGE
 docker tag $IMAGE $CONTAINER_REGISTRY/$IMAGE
 docker push $CONTAINER_REGISTRY/$IMAGE
@@ -20,5 +20,5 @@ if [[ $(waitFor "configmap" "app") -eq 1 ]] ; then
   exit 1
 fi
 
-# Run OpenShift Tests
+# Run Tests
 ./mvnw -s .github/mvn-settings.xml clean verify -Pkubernetes-it -Dunmanaged-test=true -Dkubernetes.namespace=$K8S_NAMESPACE

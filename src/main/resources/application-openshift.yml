@@ -1,0 +1,7 @@
+management.endpoints.web.exposure.include: health,info
+# Dekorate
+dekorate:
+  openshift:
+    expose: true
+  s2i:
+    builder-image: registry.access.redhat.com/ubi8/openjdk-11:1.14

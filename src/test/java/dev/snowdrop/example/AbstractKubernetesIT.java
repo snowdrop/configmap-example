@@ -17,12 +17,13 @@
 package dev.snowdrop.example;
 
 import io.fabric8.kubernetes.client.dsl.ScalableResource;
-import io.fabric8.openshift.client.OpenShiftClient;
 
-public abstract class AbstractOpenShiftIT extends AbstractIT {
+public abstract class AbstractKubernetesIT extends AbstractIT {
+
+    protected static final String NAMESPACE = System.getProperty("kubernetes.namespace");
 
     @Override
     protected ScalableResource<?> deployment() {
-        return kubernetesClient().adapt(OpenShiftClient.class).deploymentConfigs().withName(GREETING_NAME);
+        return kubernetesClient().apps().deployments().inNamespace(NAMESPACE).withName(GREETING_NAME);
     }
 }

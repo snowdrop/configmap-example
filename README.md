@@ -71,7 +71,7 @@ helm uninstall configmap
 ## Running Tests on OpenShift using Dekorate
 
 ```
-./run_tests_with_dekorate.sh
+./run_tests_with_dekorate_in_ocp.sh
 ```
 
 ## Running Tests on OpenShift using S2i from Source

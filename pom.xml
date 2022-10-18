@@ -31,7 +31,10 @@
     <spring-cloud-kubernetes.version>2.1.3</spring-cloud-kubernetes.version>
     <fabric8.version>5.12.1</fabric8.version>
 
-    <dekorate.version>2.11.0</dekorate.version>
+    <!-- We cannot use Dekorate 3.x because it uses Fabric8 Kubernetes Client 6.x which is incompatible with
+    https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-kubernetes-fabric8-autoconfig that uses the
+    version 5.10.2. Once this dependency bumped to the latest 6.x, we can bump Dekorate to 3.x. -->
+    <dekorate.version>2.11.3</dekorate.version>
 
     <!-- Overriden from Spring Boot -->
     <tomcat.version>9.0.65</tomcat.version>
@@ -184,28 +187,11 @@
       <groupId>io.dekorate</groupId>
       <artifactId>openshift-junit</artifactId>
       <scope>test</scope>
-      <!-- We need to exclude Kubernetes/OpenShift Client because it's in conflict with Dekorate dependency -->
-      <exclusions>
-        <exclusion>
-          <groupId>io.fabric8</groupId>
-          <artifactId>kubernetes-client</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>io.fabric8</groupId>
-          <artifactId>openshift-client</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>io.dekorate</groupId>
       <artifactId>kubernetes-junit</artifactId>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>io.dekorate</groupId>
-          <artifactId>docker-annotations</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
@@ -284,6 +270,7 @@
             <artifactId>maven-failsafe-plugin</artifactId>
             <version>${maven-failsafe-plugin.version}</version>
             <configuration>
+              <trimStackTrace>false</trimStackTrace>
               <systemPropertyVariables>
                 <app.name>${project.artifactId}</app.name>
               </systemPropertyVariables>
@@ -313,6 +300,7 @@
             <artifactId>maven-failsafe-plugin</artifactId>
             <version>${maven-failsafe-plugin.version}</version>
             <configuration>
+              <trimStackTrace>false</trimStackTrace>
               <systemPropertyVariables>
                 <app.name>${project.artifactId}</app.name>
               </systemPropertyVariables>
