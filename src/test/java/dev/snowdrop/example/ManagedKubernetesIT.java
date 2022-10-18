@@ -20,16 +20,16 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import io.dekorate.testing.annotation.Inject;
 import io.dekorate.testing.annotation.KubernetesIntegrationTest;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.LocalPortForward;
 
-@EnabledIfSystemProperty(named = "unmanaged-test", matches = "true")
-@KubernetesIntegrationTest(deployEnabled = false, buildEnabled = false)
-public class UnmanagedKubernetesIT extends AbstractKubernetesIT {
+@DisabledIfSystemProperty(named = "unmanaged-test", matches = "true")
+@KubernetesIntegrationTest
+public class ManagedKubernetesIT extends AbstractKubernetesIT {
     @Inject
     KubernetesClient kubernetesClient;
 
@@ -37,7 +37,7 @@ public class UnmanagedKubernetesIT extends AbstractKubernetesIT {
 
     @BeforeEach
     public void setup() {
-        appPort = kubernetesClient.services().inNamespace(System.getProperty("kubernetes.namespace")).withName("configmap")
+        appPort = kubernetesClient.services().inNamespace(NAMESPACE).withName("configmap")
                 .portForward(8080);
     }
 

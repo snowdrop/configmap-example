@@ -2,5 +2,5 @@
 
 oc create -f .openshiftio/resource.configmap.yaml
 
-# Run OpenShift Tests
+# Run Tests
 ./mvnw -s .github/mvn-settings.xml clean verify -Popenshift,openshift-it
