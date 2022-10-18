@@ -16,42 +16,18 @@
 
 package dev.snowdrop.example;
 
-import java.io.IOException;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import io.dekorate.testing.annotation.Inject;
 import io.dekorate.testing.annotation.KubernetesIntegrationTest;
 import io.fabric8.kubernetes.client.KubernetesClient;
-import io.fabric8.kubernetes.client.LocalPortForward;
 
 @EnabledIfSystemProperty(named = "unmanaged-test", matches = "true")
 @KubernetesIntegrationTest(deployEnabled = false, buildEnabled = false)
-public class UnmanagedKubernetesIT extends AbstractKubernetesIT {
+public class UnmanagedKubernetesIT extends AbstractIT {
+
     @Inject
     KubernetesClient kubernetesClient;
-
-    LocalPortForward appPort;
-
-    @BeforeEach
-    public void setup() {
-        appPort = kubernetesClient.services().inNamespace(System.getProperty("kubernetes.namespace")).withName("configmap")
-                .portForward(8080);
-    }
-
-    @AfterEach
-    public void tearDown() throws IOException {
-        if (appPort != null) {
-            appPort.close();
-        }
-    }
-
-    @Override
-    protected String baseURL() {
-        return "http://localhost:" + appPort.getLocalPort() + "/";
-    }
 
     @Override
     protected KubernetesClient kubernetesClient() {
