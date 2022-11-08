@@ -3,4 +3,4 @@
 oc create -f .openshiftio/resource.configmap.yaml
 
 # Run Tests
-./mvnw -s .github/mvn-settings.xml clean verify -Popenshift,openshift-it
+eval "./mvnw clean verify -Popenshift,openshift-it $@"
