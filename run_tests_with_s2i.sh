@@ -17,7 +17,7 @@ while [ $# -gt 0 ]; do
       --repository-url) SOURCE_REPOSITORY_URL="$2";;
       --branch-to-test) SOURCE_REPOSITORY_REF="$2";;
       --maven-settings) MAVEN_SETTINGS_REF="-s $2";;
-      --maven-mirror-url) MAVEN_MIRROR_URL="-s $2";;
+      --maven-mirror-url) MAVEN_MIRROR_URL="$2";;
     esac;
   fi
   shift
