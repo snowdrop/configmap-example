@@ -3,8 +3,10 @@
 #   . --repository-url
 #   . --branch-to-test
 #   . --maven-settings
+#   . --maven-mirror-url
 SOURCE_REPOSITORY_URL="https://github.com/snowdrop/configmap-example"
 SOURCE_REPOSITORY_REF="sb-2.7.x"
+MAVEN_SETTINGS_REF=""
 MAVEN_MIRROR_URL=""
 
 
