@@ -34,7 +34,7 @@ source scripts/waitFor.sh
 oc create -f .openshiftio/resource.configmap.yaml
 oc create -f .openshiftio/application.yaml
 oc new-app --template=configmap -p SOURCE_REPOSITORY_URL=$SOURCE_REPOSITORY_URL -p SOURCE_REPOSITORY_REF=$SOURCE_REPOSITORY_REF \
-  -p MAVEN_MIRROR_URL=$MAVEN_MIRROR_URL-p MAVEN_ARGS_APPEND="$UNMANAGED_PARAMS"
+  -p MAVEN_MIRROR_URL=$MAVEN_MIRROR_URL -p MAVEN_ARGS_APPEND="$UNMANAGED_PARAMS"
 if [[ $(waitFor "configmap" "app") -eq 1 ]] ; then
   echo "Application failed to deploy. Aborting"
   exit 1
