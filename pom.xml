@@ -17,7 +17,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dev.snowdrop.example</groupId>
   <artifactId>configmap</artifactId>
-  <version>2.7.2-12-SNAPSHOT</version>
+  <version>2.7.8-1-SNAPSHOT</version>
   <name>Spring Boot - ConfigMap Example</name>
   <description>Spring Boot - ConfigMap Example</description>
   <properties>
@@ -26,8 +26,8 @@
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
 
-    <spring-boot.version>2.7.2</spring-boot.version>
-    <spring-cloud-kubernetes.version>2.1.3</spring-cloud-kubernetes.version>
+    <spring-boot.version>2.7.8</spring-boot.version>
+    <spring-cloud-kubernetes.version>2.1.5</spring-cloud-kubernetes.version>
     <fabric8.version>5.12.1</fabric8.version>
 
     <!-- We cannot use Dekorate 3.x because it uses Fabric8 Kubernetes Client 6.x which is incompatible with
@@ -36,7 +36,7 @@
     <dekorate.version>2.11.5</dekorate.version>
 
     <!-- Overriden from Spring Boot -->
-    <tomcat.version>9.0.65</tomcat.version>
+    <tomcat.version>9.0.71</tomcat.version>
   </properties>
   <licenses>
     <license>
