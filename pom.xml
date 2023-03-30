@@ -27,7 +27,7 @@
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
 
     <spring-boot.version>2.7.10</spring-boot.version>
-    <spring-cloud-kubernetes.version>2.1.5</spring-cloud-kubernetes.version>
+    <spring-cloud-kubernetes.version>2.1.6</spring-cloud-kubernetes.version>
     <fabric8.version>5.12.1</fabric8.version>
 
     <!-- We cannot use Dekorate 3.x because it uses Fabric8 Kubernetes Client 6.x which is incompatible with
