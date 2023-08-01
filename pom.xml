@@ -17,7 +17,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dev.snowdrop.example</groupId>
   <artifactId>configmap</artifactId>
-  <version>2.7.13-2-redhat</version>
+  <version>2.7.13-3-SNAPSHOT</version>
   <name>Spring Boot - ConfigMap Example</name>
   <description>Spring Boot - ConfigMap Example</description>
   <properties>
@@ -33,10 +33,10 @@
     <!-- We cannot use Dekorate 3.x because it uses Fabric8 Kubernetes Client 6.x which is incompatible with
     https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-kubernetes-fabric8-autoconfig that uses the
     version 5.10.2. Once this dependency bumped to the latest 6.x, we can bump Dekorate to 3.x. -->
-    <dekorate.version>2.11.5.redhat-00017</dekorate.version>
+    <dekorate.version>2.11.6</dekorate.version>
 
     <!-- Overriden from Spring Boot -->
-    <tomcat.version>9.0.62.redhat-00011</tomcat.version>
+    <tomcat.version>9.0.76</tomcat.version>
   </properties>
   <licenses>
     <license>
