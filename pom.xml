@@ -17,7 +17,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dev.snowdrop.example</groupId>
   <artifactId>configmap</artifactId>
-  <version>2.7.15-1-SNAPSHOT</version>
+  <version>2.7.15-1</version>
   <name>Spring Boot - ConfigMap Example</name>
   <description>Spring Boot - ConfigMap Example</description>
   <properties>
