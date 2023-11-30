@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        openshift: [ v3.10.0 ]
+        openshift: [ v3.11.0 ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.4
@@ -39,7 +39,7 @@ jobs:
           distribution: 'adopt'
           cache: 'maven'
       - name: Setup OpenShift
-        uses: manusa/actions-setup-openshift@v1.1.4
+        uses: manusa/actions-setup-openshift@v1.1.5
         with:
           oc version: ${{ matrix.openshift }}
           dns ip: 1.1.1.1
